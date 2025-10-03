@@ -12,14 +12,16 @@ const Hero = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div className="space-y-8 animate-fade-in">
-            <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
+            <h1 className="text-5xl lg:text-7xl font-bold leading-tight">
               Your{" "}
-              <span className="bg-gradient-hero bg-clip-text text-transparent">
+              <span className="bg-gradient-hero bg-clip-text text-transparent "
+                style={{ fontFamily: "Google Sans, sans-serif", fontWeight: 800 }}>
                 Financial Future
               </span>{" "}
               Starts Here
             </h1>
-            <p className="text-xl text-muted-foreground leading-relaxed">
+            <p className="text-xl text-muted-foreground leading-relaxed"
+              style={{ fontFamily: "Google Sans, sans-serif", fontWeight: 500 }}>
               Take control of your finances with personalized budgeting,
               smart investment recommendations, and real-time financial insights.
             </p>

@@ -647,22 +647,22 @@ const Header = () => {
                 <span>Dashboard</span>
               </Link>
               <Link
-                to="/career-paths"
+                to="/budget-planner"
                 className="flex items-center space-x-3 px-4 py-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 active:bg-gray-100 transition-all duration-200"
                 style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
                 onClick={() => setIsMenuOpen(false)}
               >
                 <TrendingUp className="h-5 w-5 text-green-600" />
-                <span>Career Paths</span>
+                <span>Budget Planner</span>
               </Link>
               <Link
-                to="/skills-analysis"
+                to="/investments"
                 className="flex items-center space-x-3 px-4 py-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 active:bg-gray-100 transition-all duration-200"
                 style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
                 onClick={() => setIsMenuOpen(false)}
               >
                 <span className="material-icons text-lg text-red-600">psychology</span>
-                <span>Skills Analysis</span>
+                <span>Invest</span>
               </Link>
               <Link
                 to="/resume-builder"

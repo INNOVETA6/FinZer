@@ -33,17 +33,22 @@ const features = [
 
 const Features = () => {
   return (
-    <section id="features" className="py-20 px-4 lg:px-8 bg-muted/30">
+    <section id="features" className="py-20 mt-7 px-4 lg:px-8 bg-muted/30" style={{ fontFamily: "Google Sans, sans-serif", fontWeight: 500 }}>
+
+
       <div className="container mx-auto">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-          <h2 className="text-4xl lg:text-5xl font-bold">
+        <div className="text-center max-w-3xl mx-auto mb-16 space-y-4"
+          style={{ fontFamily: "Google Sans, sans-serif", fontWeight: 800 }}>
+
+          <h2 className="text-4xl lg:text-6xl font-extrabold">
             Everything You Need to{" "}
             <span className="bg-gradient-primary bg-clip-text text-transparent">
               Succeed Financially
             </span>
           </h2>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-xl text-muted-foreground leading-relaxed"
+            style={{ fontFamily: "Google Sans, sans-serif", fontWeight: 500 }}>
             Powerful features designed to simplify your financial journey and help you achieve your goals.
           </p>
         </div>
@@ -53,21 +58,33 @@ const Features = () => {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="group bg-card rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-border"
+              className={`group bg-card rounded-2xl p-8 shadow-md border border-border 
+    transform transition-all duration-500 ease-in-out
+    hover:shadow-2xl hover:-translate-y-2  hover:scale-105
+    hover:brightness-80 hover:z-6
+  `}
             >
               <div
-                className={`w-14 h-14 rounded-xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}
+                className={`
+      w-14 h-14 rounded-xl 
+      bg-gradient-to-br 
+      ${feature.gradient} 
+      flex items-center justify-center mb-6 
+      group-hover:scale-125
+      group-hover:shadow-lg
+      transition-transform duration-500 ease-in-out
+      group-hover:brightness-100
+      group-hover:animate-pulse-slow
+    `}
               >
                 <feature.icon className="w-7 h-7 text-white" />
               </div>
-              <h3 className="text-xl font-bold mb-3 text-foreground">
-                {feature.title}
-              </h3>
-              <p className="text-muted-foreground leading-relaxed">
-                {feature.description}
-              </p>
+              <h3 className="text-xl font-bold mb-3 text-foreground">{feature.title}</h3>
+              <p className="text-muted-foreground leading-relaxed" >{feature.description}</p>
             </div>
+
           ))}
+
         </div>
       </div>
     </section>
