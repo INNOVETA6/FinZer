@@ -2,30 +2,32 @@ import { Linkedin, Twitter, Github } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="bg-background border-t border-border py-12 px-4 lg:px-8">
+    <footer className="bg-background border-t border-border py-12 px-4 lg:px-8"
+      style={{ fontFamily: "Google Sans, sans-serif", fontWeight: 500 }}
+>
       <div className="container mx-auto">
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           {/* Brand */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <div className="w-8 h-8 rounded-lg bg-gradient-primary"></div>
-              <span className="text-lg font-bold text-foreground">
+              <span className="text-2xl font-bold text-foreground">
                 Financial<span className="text-primary">Advisor</span>
               </span>
             </div>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-m text-muted-foreground">
               Empowering your financial future with smart planning and personalized insights.
             </p>
           </div>
 
           {/* Links */}
           <div className="space-y-4">
-            <h4 className="font-semibold text-foreground">Quick Links</h4>
+            <h4 className="font-semibold text-foreground text-xl">Quick Links</h4>
             <ul className="space-y-2">
               <li>
                 <a
                   href="#about"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  className="text-m text-muted-foreground hover:text-primary transition-colors"
                 >
                   About Us
                 </a>
@@ -33,7 +35,7 @@ const Footer = () => {
               <li>
                 <a
                   href="#contact"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  className="text-m text-muted-foreground hover:text-primary transition-colors"
                 >
                   Contact
                 </a>
@@ -41,7 +43,7 @@ const Footer = () => {
               <li>
                 <a
                   href="#privacy"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  className="text-m text-muted-foreground hover:text-primary transition-colors"
                 >
                   Privacy Policy
                 </a>
@@ -51,7 +53,7 @@ const Footer = () => {
 
           {/* Social */}
           <div className="space-y-4">
-            <h4 className="font-semibold text-foreground">Connect With Us</h4>
+            <h4 className="font-semibold text-foreground text-xl">Connect With Us</h4>
             <div className="flex space-x-4">
               <a
                 href="https://linkedin.com"
