@@ -18,8 +18,13 @@ const Hero = () => {
 
   return (
     <>
+<<<<<<< HEAD
       
       <section className="pt-32 pb-20 px-4 lg:px-8">
+=======
+      <FinancialChatbot />
+      <section className="pt-40 pb-20 px-4 lg:px-8">
+>>>>>>> 54827f6114220b2430cd85aa1cc4bf73083029ee
         <div className="container mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left Content */}
