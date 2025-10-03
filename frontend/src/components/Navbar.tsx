@@ -57,13 +57,14 @@ const Header = () => {
   const navigate = useNavigate();
 
   // Sample search data
+  // Sample search data
   const searchData = [
-    { id: 1, title: "AI Career Path", type: "career", url: "/career-paths" },
-    { id: 2, title: "Skills Analysis", type: "skill", url: "/skills-analysis" },
+    { id: 1, title: "Budget Planner", type: "career", url: "/budget-planner" },
+    { id: 2, title: "Investments", type: "skill", url: "/investments" },
     { id: 3, title: "Resume Builder for Tech Jobs", type: "tool", url: "/resume-builder" },
-    { id: 4, title: "AI/ML Engineering Guide", type: "career", url: "/career-paths" },
-    { id: 5, title: "Frontend Development Skills", type: "skill", url: "/skills-analysis" },
-    { id: 6, title: "Mentorship Program", type: "mentorship", url: "/mentorship" },
+    { id: 4, title: "Manage the budget", type: "planner", url: "/budget-planner" },
+    { id: 5, title: "Investment Recommendations", type: "recommend", url: "/investments" },
+    { id: 6, title: "Learning Hub", type: "learning", url: "/learning-hub" },
     { id: 7, title: "Dashboard Overview", type: "page", url: "/dashboard" },
     { id: 8, title: "Product Management Career", type: "career", url: "/career-paths/product-management" },
     { id: 9, title: "UX/UI Design Skills", type: "skill", url: "/skills-analysis/ux-design" },
@@ -74,21 +75,21 @@ const Header = () => {
   const sampleNotifications = [
     {
       id: 1,
-      title: "New Career Path Recommendation",
-      message: "Based on your profile, we found 3 new career paths that match your skills.",
+      title: "New Ivestment Idea",
+      message: "Based on your profile, we found 3 new investments paths that match your financial score.",
       time: "5 minutes ago",
-      type: "career",
+      type: "investments",
       read: false,
-      actionUrl: "/career-paths",
+      actionUrl: "/investments",
     },
     {
       id: 2,
-      title: "Mentor Session Scheduled",
+      title: "Budget Planning Session Scheduled",
       message: "Your session with Sarah Johnson is scheduled for tomorrow at 2:00 PM.",
       time: "1 hour ago",
-      type: "mentorship",
+      type: "budget-planner",
       read: false,
-      actionUrl: "/mentorship",
+      actionUrl: "/budget-planner",
     },
     {
       id: 3,
@@ -101,12 +102,12 @@ const Header = () => {
     },
     {
       id: 4,
-      title: "Skills Assessment Available",
-      message: "A new JavaScript skills assessment is now available for you to take.",
+      title: "Learning Assessment Available",
+      message: "A new investment tip is now available for you to take.",
       time: "1 day ago",
-      type: "skill",
+      type: "learning hub",
       read: false,
-      actionUrl: "/skills-analysis",
+      actionUrl: "/learning-hub",
     },
   ];
 
@@ -269,6 +270,7 @@ const Header = () => {
   }, [isSearchOpen, isNotificationOpen, isProfileMenuOpen]);
 
   // Get icon for search result type
+  // Get icon for search result type
   const getResultIcon = (type) => {
     switch (type) {
       case "career":
@@ -277,8 +279,12 @@ const Header = () => {
         return <span className="material-icons text-base text-red-600">psychology</span>;
       case "tool":
         return <FileText className="h-4 w-4 text-blue-600" />;
-      case "mentorship":
-        return <Users className="h-4 w-4 text-purple-600" />;
+      case "planner":
+        return <span className="material-icons text-base text-purple-600">calendar_today</span>;
+      case "recommend":
+        return <span className="material-icons text-base text-orange-600">lightbulb</span>;
+      case "learning":
+        return <span className="material-icons text-base text-indigo-600">school</span>;
       case "page":
         return <LayoutDashboard className="h-4 w-4 text-gray-600" />;
       default:
@@ -286,16 +292,17 @@ const Header = () => {
     }
   };
 
+
   // Get icon for notification type
   const getNotificationIcon = (type) => {
     switch (type) {
       case "career":
         return <span className="material-icons text-green-600 text-lg">trending_up</span>;
-      case "mentorship":
+      case "learning-hub":
         return <span className="material-icons text-purple-600 text-lg">people</span>;
       case "analysis":
         return <span className="material-icons text-blue-600 text-lg">analytics</span>;
-      case "skill":
+      case "investments":
         return <span className="material-icons text-red-600 text-lg">psychology</span>;
       default:
         return <span className="material-icons text-gray-600 text-lg">notifications</span>;
@@ -375,16 +382,15 @@ const Header = () => {
                 <span>Resume</span>
               </Link>
               <Link
-                to="/mentorship"
+                to="/learning-hub"
                 className="flex items-center space-x-1.5 px-3 py-2 text-sm font-medium text-gray-700 rounded-full transition-all duration-200 hover:bg-blue-50 hover:text-blue-600 active:bg-blue-100"
                 style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
               >
                 <Users className="h-4 w-4" />
-                <span>Mentorship</span>
+                <span>Learning Hub</span>
               </Link>
             </nav>
           )}
-
           {/* Right Side Actions */}
           <div className="flex items-center space-x-1">
             {/* Search Button - Always visible */}
@@ -692,13 +698,13 @@ const Header = () => {
                     <span>Resume Builder</span>
                   </Link>
                   <Link
-                    to="/mentorship"
+                    to="/learning-hub"
                     className="flex items-center space-x-3 px-4 py-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50"
                     style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     <Users className="h-5 w-5 text-purple-600" />
-                    <span>Mentorship</span>
+                    <span>Learning Hub</span>
                   </Link>
                 </>
               )}

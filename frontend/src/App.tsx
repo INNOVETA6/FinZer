@@ -10,6 +10,7 @@ import FinancialDashboard from "./pages/FinancialDashboard";
 import BudgetPlanner from "./pages/BudgetPlanner";
 import InvestmentsPage from "./pages/InvestmentsPage";
 import ProfilePage from "./pages/ProfilePage";
+import LearningHub from "./pages/LearningHub";
 
 
 const queryClient = new QueryClient();
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/budget-planner" element={<BudgetPlanner />} />
           <Route path="/investments" element={<InvestmentsPage />} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="learning-hub" element={<LearningHub />} />
           
           <Route path="*" element={<NotFound />} />
         </Routes>
