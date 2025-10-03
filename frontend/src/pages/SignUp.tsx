@@ -157,14 +157,22 @@ const SignUp = () => {
 
     return (
         <div className="min-h-screen flex" style={{ backgroundColor: "#f8f9fa" }}>
+
             {/* Left Side - Hero Section */}
-            <div
-                className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-blue-500 to-blue-600 p-12 flex-col justify-between text-white"
-            >
-                <div>
+            <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-blue-950 to-blue-900 p-12 flex-col justify-between text-white relative overflow-hidden">
+                {/* Animated background elements */}
+                <div className="absolute inset-0 opacity-30">
+                    <div className="absolute top-20 left-10 w-72 h-72 bg-blue-900 rounded-full mix-blend-overlay filter blur-3xl animate-blob"></div>
+                    <div className="absolute top-40 right-10 w-72 h-72 bg-blue-800 rounded-full mix-blend-overlay filter blur-3xl animate-blob animation-delay-2000"></div>
+                    <div className="absolute -bottom-8 left-20 w-72 h-72 bg-indigo-900 rounded-full mix-blend-overlay filter blur-3xl animate-blob animation-delay-4000"></div>
+                </div>
+            
+
+
+                <div className="relative z-10">
                     {/* Logo */}
-                    <div className="flex items-center gap-3 mb-16">
-                        <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                    <div className="flex items-center gap-3 mb-16 animate-fade-in">
+                        <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm shadow-lg">
                             <School className="w-6 h-6" />
                         </div>
                         <span
@@ -178,13 +186,13 @@ const SignUp = () => {
                     {/* Hero Content */}
                     <div className="space-y-8">
                         <h1
-                            className="text-5xl font-bold leading-tight"
+                            className="text-5xl font-bold leading-tight animate-slide-up"
                             style={{ fontFamily: "Google Sans, sans-serif" }}
                         >
                             Take Control of Your Financial Future
                         </h1>
                         <p
-                            className="text-xl text-white/90"
+                            className="text-xl text-white/90 animate-slide-up animation-delay-200"
                             style={{ fontFamily: "Roboto, sans-serif" }}
                         >
                             Join thousands of users managing their finances smarter with personalized budgeting,
@@ -193,8 +201,8 @@ const SignUp = () => {
 
                         {/* Features */}
                         <div className="space-y-4 mt-12">
-                            <div className="flex items-start gap-3">
-                                <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <div className="flex items-start gap-3 animate-slide-up animation-delay-400 hover:translate-x-2 transition-transform duration-300">
+                                <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0 backdrop-blur-sm shadow-lg">
                                     <TrendingUp className="w-5 h-5" />
                                 </div>
                                 <div>
@@ -213,8 +221,8 @@ const SignUp = () => {
                                 </div>
                             </div>
 
-                            <div className="flex items-start gap-3">
-                                <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <div className="flex items-start gap-3 animate-slide-up animation-delay-600 hover:translate-x-2 transition-transform duration-300">
+                                <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0 backdrop-blur-sm shadow-lg">
                                     <Shield className="w-5 h-5" />
                                 </div>
                                 <div>
@@ -233,8 +241,8 @@ const SignUp = () => {
                                 </div>
                             </div>
 
-                            <div className="flex items-start gap-3">
-                                <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <div className="flex items-start gap-3 animate-slide-up animation-delay-800 hover:translate-x-2 transition-transform duration-300">
+                                <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0 backdrop-blur-sm shadow-lg">
                                     <Target className="w-5 h-5" />
                                 </div>
                                 <div>
@@ -255,9 +263,8 @@ const SignUp = () => {
                         </div>
                     </div>
                 </div>
-
                 {/* Trust Indicators */}
-                <div className="border-t border-white/20 pt-8">
+                <div className="border-t border-white/20 pt-1 relative z-10 ">
                     <p
                         className="text-white/70 text-sm"
                         style={{ fontFamily: "Roboto, sans-serif" }}
@@ -790,7 +797,91 @@ const SignUp = () => {
 
                 .animate-fade-in {
                     animation: fade-in 0.3s ease-out;
+
                 }
+                @keyframes blob {
+        0%, 100% {
+            transform: translate(0, 0) scale(1);
+        }
+        33% {
+            transform: translate(30px, -50px) scale(1.1);
+        }
+        66% {
+            transform: translate(-20px, 20px) scale(0.9);
+        }
+    }
+
+    @keyframes slide-up {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-blob {
+        animation: blob 7s infinite;
+    }
+
+    .animate-slide-up {
+        animation: slide-up 0.6s ease-out;
+    }
+
+    .animation-delay-200 {
+        animation-delay: 0.2s;
+        opacity: 0;
+        animation-fill-mode: forwards;
+    }
+
+    .animation-delay-400 {
+        animation-delay: 0.4s;
+        opacity: 0;
+        animation-fill-mode: forwards;
+    }
+
+    .animation-delay-600 {
+        animation-delay: 0.6s;
+        opacity: 0;
+        animation-fill-mode: forwards;
+    }
+
+    .animation-delay-800 {
+        animation-delay: 0.8s;
+        opacity: 0;
+        animation-fill-mode: forwards;
+    }
+
+    .animation-delay-1000 {
+        animation-delay: 1s;
+        opacity: 0;
+        animation-fill-mode: forwards;
+    }
+
+    .animation-delay-2000 {
+        animation-delay: 2s;
+    }
+
+    .animation-delay-4000 {
+        animation-delay: 4s;
+    }
+
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fade-in {
+        animation: fade-in 0.3s ease-out;
+    }    
             `}</style>
         </div>
     );
