@@ -5,7 +5,6 @@ Run script for development and production
 """
 import uvicorn
 import sys
-import os
 from pathlib import Path
 
 # Add app directory to Python path
@@ -14,12 +13,13 @@ sys.path.insert(0, str(app_dir))
 
 from app.core.config import settings
 
+
 def main():
     """Main function to run the API server"""
     print("🏦 Financial Literacy Budget Planner API")
     print("=" * 50)
-    print(f"🌐 Server: http://{settings.HOST}:{settings.PORT}")
-    print(f"📚 Docs: http://{settings.HOST}:{settings.PORT}/docs")
+    print(f"🌐 Server: http://{settings.API_HOST}:{settings.API_PORT}")
+    print(f"📚 Docs: http://{settings.API_HOST}:{settings.API_PORT}/docs")
     print(f"🔧 Debug Mode: {settings.API_DEBUG}")
     print("=" * 50)
     
@@ -31,6 +31,7 @@ def main():
         log_level=settings.LOG_LEVEL.lower(),
         access_log=True
     )
+
 
 if __name__ == "__main__":
     main()

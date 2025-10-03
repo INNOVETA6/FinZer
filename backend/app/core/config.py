@@ -1,6 +1,5 @@
 from pydantic_settings import BaseSettings
-from typing import List
-import os
+from typing import List, Optional
 from pathlib import Path
 
 class Settings(BaseSettings):
@@ -12,7 +11,8 @@ class Settings(BaseSettings):
     API_VERSION: str = "1.0.0"
     API_DESCRIPTION: str = "AI-powered budget categorization and financial planning API"
     
-    GROQ_API_KEY: str = "REMOVED_SECRET"
+    # AI / ML API Keys
+    GROQ_API_KEY: Optional[str] = None
     ENABLE_CHATBOT_MODEL: bool = False
 
     # CORS Configuration
@@ -48,12 +48,10 @@ class Settings(BaseSettings):
     class Config:
         env_file = ".env"
         case_sensitive = True
-        
-        
+        extra = "ignore"  # Allows additional env vars without error
 
-# Create settings instance
 settings = Settings()
 
-# Ensure directories exist
+import os
 os.makedirs(settings.ML_MODEL_PATH, exist_ok=True)
 os.makedirs(Path(settings.LOG_FILE).parent, exist_ok=True)
