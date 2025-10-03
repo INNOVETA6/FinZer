@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import SignUp from "@/pages/SignUp";
 
 const Header = () => {
   // ============================================================
@@ -31,7 +32,7 @@ const Header = () => {
     setIsAuthenticated(true);
     localStorage.setItem('isAuthenticated', 'true');
     // Navigate to dashboard after login
-    navigate('/dashboard');
+    navigate('/sign-up');
   };
 
   // Handle logout - removes from localStorage
@@ -390,6 +391,7 @@ const Header = () => {
                 <span>Learning Hub</span>
               </Link>
             </nav>
+            
           )}
           {/* Right Side Actions */}
           <div className="flex items-center space-x-1">
@@ -608,12 +610,16 @@ const Header = () => {
                 </>
               ) : (
                 <>
-                  {/* UNAUTHENTICATED - Show only Sign In button */}
+                  {/* UNAUTHENTICATED - Show  Get Started buttons */}
+
+                 
+
+                  {/* Get Started Button */}
                   <div className="gemini-border-wrapper hidden md:block">
                     <Button
                       className="gemini-gradient-border h-10 px-6 bg-white text-gray-700 rounded-full border-0 relative font-medium"
                       style={{ fontFamily: 'Google Sans, sans-serif', fontWeight: '500' }}
-                      onClick={handleLogin}
+                      onClick={handleLogin} // 🔥 CHANGED: Use handleLogin
                     >
                       Get Started
                     </Button>
@@ -635,158 +641,162 @@ const Header = () => {
               </button>
             </div>
           </div>
-        </div>
 
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden border-t border-gray-200 bg-white shadow-lg">
-            <nav className="flex flex-col p-4 space-y-1">
-              {/* Mobile Search */}
-              <div className="mb-4">
-                <form onSubmit={handleSearchSubmit} className="relative">
-                  <input
-                    type="text"
-                    placeholder="Search careers, skills, tools..."
-                    className="w-full h-12 pl-12 pr-4 text-sm border-2 border-gray-200 rounded-full focus:outline-none focus:ring-0 focus:border-blue-500 bg-gray-50 focus:bg-white transition-all duration-300"
-                    style={{ fontFamily: "Roboto, sans-serif", fontWeight: 400 }}
-                    value={searchQuery}
-                    onChange={handleSearchChange}
-                  />
-                  <span className="material-icons absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
-                    search
-                  </span>
-                </form>
-              </div>
 
-              {/* Mobile Navigation Links - Only when authenticated */}
-              {isAuthenticated && (
-                <>
-                  <Link
-                    to="/dashboard"
-                    className="flex items-center space-x-3 px-4 py-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50"
-                    style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    <LayoutDashboard className="h-5 w-5 text-blue-600" />
-                    <span>Dashboard</span>
-                  </Link>
-                  <Link
-                    to="/budget-planner"
-                    className="flex items-center space-x-3 px-4 py-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50"
-                    style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    <TrendingUp className="h-5 w-5 text-green-600" />
-                    <span>Budget Planner</span>
-                  </Link>
-                  <Link
-                    to="/investments"
-                    className="flex items-center space-x-3 px-4 py-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50"
-                    style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    <span className="material-icons text-lg text-red-600">psychology</span>
-                    <span>Investments</span>
-                  </Link>
-                  <Link
-                    to="/resume-builder"
-                    className="flex items-center space-x-3 px-4 py-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50"
-                    style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    <FileText className="h-5 w-5 text-yellow-600" />
-                    <span>Resume Builder</span>
-                  </Link>
-                  <Link
-                    to="/learning-hub"
-                    className="flex items-center space-x-3 px-4 py-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50"
-                    style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    <Users className="h-5 w-5 text-purple-600" />
-                    <span>Learning Hub</span>
-                  </Link>
-                </>
-              )}
+          {/* Mobile Navigation */}
+          {isMenuOpen && (
+            // Fixed positioning to cover the viewport for mobile menu
+            <div className="md:hidden absolute top-16 left-0 w-full border-t border-gray-200 bg-white shadow-lg z-40">
+              <nav className="flex flex-col p-4 space-y-1">
+                {/* Mobile Search */}
+                <div className="mb-4">
+                  <form onSubmit={handleSearchSubmit} className="relative">
+                    <input
+                      type="text"
+                      placeholder="Search careers, skills, tools..."
+                      className="w-full h-12 pl-12 pr-4 text-sm border-2 border-gray-200 rounded-full focus:outline-none focus:ring-0 focus:border-blue-500 bg-gray-50 focus:bg-white transition-all duration-300"
+                      style={{ fontFamily: "Roboto, sans-serif", fontWeight: 400 }}
+                      value={searchQuery}
+                      onChange={handleSearchChange}
+                    />
+                    <span className="material-icons absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+                      search
+                    </span>
+                  </form>
+                </div>
 
-              {/* Mobile Auth Section */}
-              {!isLoading && (
-                isAuthenticated ? (
-                  <div className="flex flex-col space-y-1 pt-4 border-t border-gray-200 mt-4">
+                {/* Mobile Navigation Links - Only when authenticated */}
+                {isAuthenticated && (
+                  <>
                     <Link
-                      to="/profile"
+                      to="/dashboard"
                       className="flex items-center space-x-3 px-4 py-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50"
                       style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
                       onClick={() => setIsMenuOpen(false)}
                     >
-                      <span className="material-icons text-lg text-blue-600">account_circle</span>
-                      <span>Profile</span>
+                      <LayoutDashboard className="h-5 w-5 text-blue-600" />
+                      <span>Dashboard</span>
                     </Link>
                     <Link
-                      to="/settings"
+                      to="/budget-planner"
                       className="flex items-center space-x-3 px-4 py-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50"
                       style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
                       onClick={() => setIsMenuOpen(false)}
                     >
-                      <span className="material-icons text-lg text-gray-600">settings</span>
-                      <span>Settings</span>
+                      <TrendingUp className="h-5 w-5 text-green-600" />
+                      <span>Budget Planner</span>
                     </Link>
-                    <button
-                      onClick={handleLogout}
-                      className="flex items-center space-x-3 px-4 py-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 text-left"
+                    <Link
+                      to="/investments"
+                      className="flex items-center space-x-3 px-4 py-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50"
                       style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
-                      type="button"
+                      onClick={() => setIsMenuOpen(false)}
                     >
-                      <span className="material-icons text-lg text-red-600">logout</span>
-                      <span>Sign Out</span>
-                    </button>
-                    <div className="px-4 py-3 mt-2">
-                      <div className="google-user-card mobile">
-                        <div className="user-avatar mobile">
-                          <span
-                            className="user-initial"
-                            style={{ fontFamily: "Google Sans, sans-serif", fontWeight: 600 }}
-                          >
-                            U
-                          </span>
-                        </div>
-                        <div className="user-info mobile">
-                          <span
-                            className="user-greeting mobile"
-                            style={{ fontFamily: "Google Sans, sans-serif", fontWeight: 500 }}
-                          >
-                            Welcome back!
-                          </span>
-                          <span
-                            className="user-name mobile"
-                            style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
-                          >
-                            User
-                          </span>
+                      <span className="material-icons text-lg text-red-600">psychology</span>
+                      <span>Investments</span>
+                    </Link>
+                    <Link
+                      to="/resume-builder"
+                      className="flex items-center space-x-3 px-4 py-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50"
+                      style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      <FileText className="h-5 w-5 text-yellow-600" />
+                      <span>Resume Builder</span>
+                    </Link>
+                    <Link
+                      to="/learning-hub"
+                      className="flex items-center space-x-3 px-4 py-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50"
+                      style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      <Users className="h-5 w-5 text-purple-600" />
+                      <span>Learning Hub</span>
+                    </Link>
+                  </>
+                )}
+
+                {/* Mobile Auth Section */}
+                {!isLoading && (
+                  isAuthenticated ? (
+                    <div className="flex flex-col space-y-1 pt-4 border-t border-gray-200 mt-4">
+                      <Link
+                        to="/profile"
+                        className="flex items-center space-x-3 px-4 py-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50"
+                        style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        <span className="material-icons text-lg text-blue-600">account_circle</span>
+                        <span>Profile</span>
+                      </Link>
+                      <Link
+                        to="/settings"
+                        className="flex items-center space-x-3 px-4 py-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50"
+                        style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        <span className="material-icons text-lg text-gray-600">settings</span>
+                        <span>Settings</span>
+                      </Link>
+                      <button
+                        onClick={handleLogout}
+                        className="flex items-center space-x-3 px-4 py-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 text-left"
+                        style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
+                        type="button"
+                      >
+                        <span className="material-icons text-lg text-red-600">logout</span>
+                        <span>Sign Out</span>
+                      </button>
+                      <div className="px-4 py-3 mt-2">
+                        <div className="google-user-card mobile">
+                          <div className="user-avatar mobile">
+                            <span
+                              className="user-initial"
+                              style={{ fontFamily: "Google Sans, sans-serif", fontWeight: 600 }}
+                            >
+                              U
+                            </span>
+                          </div>
+                          <div className="user-info mobile">
+                            <span
+                              className="user-greeting mobile"
+                              style={{ fontFamily: "Google Sans, sans-serif", fontWeight: 500 }}
+                            >
+                              Welcome back!
+                            </span>
+                            <span
+                              className="user-name mobile"
+                              style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
+                            >
+                              User
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ) : (
-                  <div className="pt-4 border-t border-gray-200 mt-4">
-                    <div className="gemini-border-wrapper">
-                      <Button
-                        className="gemini-gradient-border w-full h-10 bg-white text-gray-700 rounded-full border-0 relative font-medium"
-                        style={{ fontFamily: 'Google Sans, sans-serif', fontWeight: '500' }}
-                        onClick={() => {
-                          handleLogin();
-                          setIsMenuOpen(false);
-                        }}
-                      >
-                        Sign In
-                      </Button>
-                    </div>
-                  </div>
-                )
-              )}
-            </nav>
-          </div>
-        )}
+                  ) : (
+                      <div className="pt-4 border-t border-gray-200 mt-4">
+                        <div className="gemini-border-wrapper">
+                          <Button
+                            className="gemini-gradient-border w-full h-10 bg-white text-gray-700 rounded-full border-0 relative font-medium"
+                            style={{ fontFamily: 'Google Sans, sans-serif', fontWeight: '500' }}
+                            onClick={() => {
+                              navigate('/sign-up'); // go to signup
+                              setIsMenuOpen(false);
+                            }}
+                          >
+                            Get Started
+                          </Button>
+                        </div>
+                      </div>
+
+                  )
+                )}
+              </nav>
+            </div>
+            
+          )}
+        </div>
       </header>
 
       {/* Search Modal - (keeping same as before, truncated for brevity) */}

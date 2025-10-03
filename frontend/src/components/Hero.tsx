@@ -9,7 +9,7 @@ const Hero = () => {
 
   // ✅ Add handler for sign in
   const handleStartJourney = () => {
-    navigate('/sign-in'); // or use your sign-in route
+    navigate('/sign-up'); // or use your sign-in route
   };
   const learninghub = () => {
     navigate('/learning-hub'); // or use your sign-in route
