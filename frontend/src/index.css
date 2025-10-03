@@ -2,133 +2,413 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import Google Sans Font */
+
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
 All colors MUST be HSL.
 */
 
 @layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222 47% 11%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
-
-    /* Primary - Trust Blue */
-    --primary: 217 91% 60%;
-    --primary-foreground: 0 0% 100%;
-    --primary-hover: 217 91% 50%;
-
-    /* Secondary - Growth Green */
-    --secondary: 142 71% 45%;
-    --secondary-foreground: 0 0% 100%;
-
-    /* Accent - Teal */
-    --accent: 173 80% 40%;
-    --accent-foreground: 0 0% 100%;
-
-    /* Purple accent for gradients */
-    --purple: 258 90% 66%;
-
-    --muted: 220 9% 96%;
-    --muted-foreground: 220 9% 46%;
-
-    --destructive: 0 72% 51%;
-    --destructive-foreground: 0 0% 100%;
-
-    --warning: 38 92% 50%;
-    --warning-foreground: 0 0% 100%;
-
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 217 91% 60%;
-
-    --radius: 0.75rem;
-
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(217 91% 60%) 0%, hsl(173 80% 40%) 100%);
-    --gradient-hero: linear-gradient(135deg, hsl(217 91% 60%) 0%, hsl(258 90% 66%) 100%);
-    
-    /* Shadows */
-    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
-    
-    /* Transitions */
-    --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222 47% 11%;
-    --foreground: 0 0% 98%;
-
-    --card: 222 47% 15%;
-    --card-foreground: 0 0% 98%;
-
-    --popover: 222 47% 15%;
-    --popover-foreground: 0 0% 98%;
-
-    --primary: 217 91% 60%;
-    --primary-foreground: 0 0% 100%;
-    --primary-hover: 217 91% 70%;
-
-    --secondary: 142 71% 45%;
-    --secondary-foreground: 0 0% 100%;
-
-    --accent: 173 80% 40%;
-    --accent-foreground: 0 0% 100%;
-
-    --purple: 258 90% 66%;
-
-    --muted: 222 47% 20%;
-    --muted-foreground: 220 9% 65%;
-
-    --destructive: 0 72% 51%;
-    --destructive-foreground: 0 0% 100%;
-
-    --warning: 38 92% 50%;
-    --warning-foreground: 0 0% 100%;
-
-    --border: 222 47% 20%;
-    --input: 222 47% 20%;
-    --ring: 217 91% 60%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
+     :root {
+        --background: 0 0% 100%;
+        --foreground: 222 47% 11%;
+        --card: 0 0% 100%;
+        --card-foreground: 222 47% 11%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 222 47% 11%;
+        /* Primary - Trust Blue */
+        --primary: 217 91% 60%;
+        --primary-foreground: 0 0% 100%;
+        --primary-hover: 217 91% 50%;
+        /* Secondary - Growth Green */
+        --secondary: 142 71% 45%;
+        --secondary-foreground: 0 0% 100%;
+        /* Accent - Teal */
+        --accent: 173 80% 40%;
+        --accent-foreground: 0 0% 100%;
+        /* Purple accent for gradients */
+        --purple: 258 90% 66%;
+        --muted: 220 9% 96%;
+        --muted-foreground: 220 9% 46%;
+        --destructive: 0 72% 51%;
+        --destructive-foreground: 0 0% 100%;
+        --warning: 38 92% 50%;
+        --warning-foreground: 0 0% 100%;
+        --border: 220 13% 91%;
+        --input: 220 13% 91%;
+        --ring: 217 91% 60%;
+        --radius: 0.75rem;
+        /* Chart Colors for Financial Dashboard */
+        --chart-1: 217 91% 60%;
+        /* Primary Blue */
+        --chart-2: 142 71% 45%;
+        /* Secondary Green */
+        --chart-3: 173 80% 40%;
+        /* Accent Teal */
+        --chart-4: 258 90% 66%;
+        /* Purple */
+        --chart-5: 38 92% 50%;
+        /* Warning Orange */
+        --chart-6: 0 72% 51%;
+        /* Destructive Red */
+        --chart-7: 280 65% 60%;
+        /* Additional Purple */
+        --chart-8: 160 60% 45%;
+        /* Additional Green */
+        /* Success Color for Financial Indicators */
+        --success: 142 71% 45%;
+        --success-foreground: 0 0% 100%;
+        /* Financial Dashboard Specific Colors */
+        --income: 142 71% 45%;
+        /* Green for positive income */
+        --expense: 0 72% 51%;
+        /* Red for expenses */
+        --savings: 217 91% 60%;
+        /* Primary blue for savings */
+        --investment: 258 90% 66%;
+        /* Purple for investments */
+        --debt: 0 72% 51%;
+        /* Red for debt */
+        /* Gradients */
+        --gradient-primary: linear-gradient(135deg, hsl(217 91% 60%) 0%, hsl(173 80% 40%) 100%);
+        --gradient-hero: linear-gradient(135deg, hsl(217 91% 60%) 0%, hsl(258 90% 66%) 100%);
+        --gradient-income: linear-gradient(135deg, hsl(142 71% 45%) 0%, hsl(142 71% 55%) 100%);
+        --gradient-expense: linear-gradient(135deg, hsl(0 72% 51%) 0%, hsl(0 72% 61%) 100%);
+        --gradient-savings: linear-gradient(135deg, hsl(217 91% 60%) 0%, hsl(217 91% 70%) 100%);
+        --gradient-investment: linear-gradient(135deg, hsl(258 90% 66%) 0%, hsl(258 90% 76%) 100%);
+        /* Shadows */
+        --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+        --shadow-financial: 0 10px 25px -5px rgb(59 130 246 / 0.15);
+        /* Transitions */
+        --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-smooth: all 0.2s ease-in-out;
+        /* Sidebar Variables */
+        --sidebar-background: 0 0% 98%;
+        --sidebar-foreground: 240 5.3% 26.1%;
+        --sidebar-primary: 240 5.9% 10%;
+        --sidebar-primary-foreground: 0 0% 98%;
+        --sidebar-accent: 240 4.8% 95.9%;
+        --sidebar-accent-foreground: 240 5.9% 10%;
+        --sidebar-border: 220 13% 91%;
+        --sidebar-ring: 217.2 91.2% 59.8%;
+        /* Financial Dashboard Background Gradients */
+        --bg-gradient-light: linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(220 9% 96%) 50%, hsl(217 91% 95%) 100%);
+        --card-gradient-light: linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(220 9% 98%) 100%);
+    }
+    .dark {
+        --background: 222 47% 11%;
+        --foreground: 0 0% 98%;
+        --card: 222 47% 15%;
+        --card-foreground: 0 0% 98%;
+        --popover: 222 47% 15%;
+        --popover-foreground: 0 0% 98%;
+        --primary: 217 91% 60%;
+        --primary-foreground: 0 0% 100%;
+        --primary-hover: 217 91% 70%;
+        --secondary: 142 71% 45%;
+        --secondary-foreground: 0 0% 100%;
+        --accent: 173 80% 40%;
+        --accent-foreground: 0 0% 100%;
+        --purple: 258 90% 66%;
+        --muted: 222 47% 20%;
+        --muted-foreground: 220 9% 65%;
+        --destructive: 0 72% 51%;
+        --destructive-foreground: 0 0% 100%;
+        --warning: 38 92% 50%;
+        --warning-foreground: 0 0% 100%;
+        --border: 222 47% 20%;
+        --input: 222 47% 20%;
+        --ring: 217 91% 60%;
+        /* Chart Colors for Dark Mode */
+        --chart-1: 217 91% 70%;
+        /* Lighter Primary Blue for dark mode */
+        --chart-2: 142 71% 55%;
+        /* Lighter Secondary Green for dark mode */
+        --chart-3: 173 80% 50%;
+        /* Lighter Accent Teal for dark mode */
+        --chart-4: 258 90% 76%;
+        /* Lighter Purple for dark mode */
+        --chart-5: 38 92% 60%;
+        /* Lighter Warning Orange for dark mode */
+        --chart-6: 0 72% 61%;
+        /* Lighter Destructive Red for dark mode */
+        --chart-7: 280 65% 70%;
+        /* Additional Purple for dark mode */
+        --chart-8: 160 60% 55%;
+        /* Additional Green for dark mode */
+        /* Success Color for Dark Mode */
+        --success: 142 71% 55%;
+        --success-foreground: 0 0% 100%;
+        /* Financial Dashboard Specific Colors for Dark Mode */
+        --income: 142 71% 55%;
+        /* Lighter Green for positive income */
+        --expense: 0 72% 61%;
+        /* Lighter Red for expenses */
+        --savings: 217 91% 70%;
+        /* Lighter Primary blue for savings */
+        --investment: 258 90% 76%;
+        /* Lighter Purple for investments */
+        --debt: 0 72% 61%;
+        /* Lighter Red for debt */
+        /* Dark Mode Gradients */
+        --gradient-primary: linear-gradient(135deg, hsl(217 91% 70%) 0%, hsl(173 80% 50%) 100%);
+        --gradient-hero: linear-gradient(135deg, hsl(217 91% 70%) 0%, hsl(258 90% 76%) 100%);
+        --gradient-income: linear-gradient(135deg, hsl(142 71% 55%) 0%, hsl(142 71% 65%) 100%);
+        --gradient-expense: linear-gradient(135deg, hsl(0 72% 61%) 0%, hsl(0 72% 71%) 100%);
+        --gradient-savings: linear-gradient(135deg, hsl(217 91% 70%) 0%, hsl(217 91% 80%) 100%);
+        --gradient-investment: linear-gradient(135deg, hsl(258 90% 76%) 0%, hsl(258 90% 86%) 100%);
+        /* Dark Mode Sidebar Variables */
+        --sidebar-background: 240 5.9% 10%;
+        --sidebar-foreground: 240 4.8% 95.9%;
+        --sidebar-primary: 224.3 76.3% 48%;
+        --sidebar-primary-foreground: 0 0% 100%;
+        --sidebar-accent: 240 3.7% 15.9%;
+        --sidebar-accent-foreground: 240 4.8% 95.9%;
+        --sidebar-border: 240 3.7% 15.9%;
+        --sidebar-ring: 217.2 91.2% 59.8%;
+        /* Financial Dashboard Background Gradients for Dark Mode */
+        --bg-gradient-dark: linear-gradient(135deg, hsl(222 47% 11%) 0%, hsl(222 47% 15%) 50%, hsl(217 91% 20%) 100%);
+        --card-gradient-dark: linear-gradient(135deg, hsl(222 47% 15%) 0%, hsl(222 47% 18%) 100%);
+    }
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
+    * {
+        @apply border-border;
+    }
+    body {
+        @apply bg-background text-foreground;
+        font-family: 'Google Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    }
+    /* Ensure Google Sans is applied to all text elements */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    span,
+    div,
+    button,
+    input,
+    label,
+    a {
+        font-family: 'Google Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    }
+}
 
-  body {
-    @apply bg-background text-foreground;
-  }
+
+/* Custom Components and Utilities */
+
+@layer components {
+    /* Financial Dashboard Specific Components */
+    .metric-card {
+        @apply bg-card border border-border rounded-lg p-6 shadow-md hover: shadow-lg transition-all duration-300 cursor-pointer hover: -translate-y-1;
+    }
+    .metric-card-income {
+        @apply bg-gradient-to-br from-green-50 to-green-100 border-green-200 dark: from-green-900/20 dark: to-green-800/20 dark: border-green-700;
+    }
+    .metric-card-expense {
+        @apply bg-gradient-to-br from-red-50 to-red-100 border-red-200 dark: from-red-900/20 dark: to-red-800/20 dark: border-red-700;
+    }
+    .metric-card-savings {
+        @apply bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200 dark: from-blue-900/20 dark: to-blue-800/20 dark: border-blue-700;
+    }
+    .metric-card-investment {
+        @apply bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200 dark: from-purple-900/20 dark: to-purple-800/20 dark: border-purple-700;
+    }
+    /* Chart Container Styling */
+    .chart-container {
+        @apply bg-card border border-border rounded-xl p-6 shadow-md hover: shadow-lg transition-shadow duration-300;
+    }
+    /* Learning Module Cards */
+    .module-card {
+        @apply bg-card border border-border rounded-xl p-6 shadow-md hover: shadow-lg hover: -translate-y-1 transition-all duration-300 cursor-pointer;
+    }
+    /* Financial Score Circle */
+    .financial-score {
+        @apply w-28 h-28 lg: w-32 lg: h-32 rounded-full bg-gradient-to-br from-primary via-accent to-purple p-1 shadow-xl;
+    }
+    .financial-score-inner {
+        @apply w-full h-full bg-background rounded-full flex flex-col items-center justify-center;
+    }
+    /* Progress Bar Variants */
+    .progress-success [role="progressbar"] {
+        background-color: hsl(var(--success));
+    }
+    .progress-warning [role="progressbar"] {
+        background-color: hsl(var(--warning));
+    }
+    .progress-destructive [role="progressbar"] {
+        background-color: hsl(var(--destructive));
+    }
+    /* Button Variants for Financial Actions */
+    .btn-income {
+        @apply bg-gradient-to-r from-green-500 to-green-600 hover: from-green-600 hover: to-green-700 text-white shadow-lg hover: shadow-xl transition-all duration-300;
+    }
+    .btn-expense {
+        @apply bg-gradient-to-r from-red-500 to-red-600 hover: from-red-600 hover: to-red-700 text-white shadow-lg hover: shadow-xl transition-all duration-300;
+    }
+    .btn-savings {
+        @apply bg-gradient-to-r from-blue-500 to-blue-600 hover: from-blue-600 hover: to-blue-700 text-white shadow-lg hover: shadow-xl transition-all duration-300;
+    }
+    .btn-investment {
+        @apply bg-gradient-to-r from-purple-500 to-purple-600 hover: from-purple-600 hover: to-purple-700 text-white shadow-lg hover: shadow-xl transition-all duration-300;
+    }
+}
+
+@layer utilities {
+    /* Financial Dashboard Utilities */
+    .bg-financial-gradient {
+        background: var(--bg-gradient-light);
+    }
+    .dark .bg-financial-gradient {
+        background: var(--bg-gradient-dark);
+    }
+    .card-financial-gradient {
+        background: var(--card-gradient-light);
+    }
+    .dark .card-financial-gradient {
+        background: var(--card-gradient-dark);
+    }
+    /* Text Gradients */
+    .text-gradient-primary {
+        @apply bg-gradient-to-r from-primary via-accent to-purple bg-clip-text text-transparent;
+    }
+    .text-gradient-income {
+        @apply bg-gradient-to-r from-green-500 to-green-600 bg-clip-text text-transparent;
+    }
+    .text-gradient-expense {
+        @apply bg-gradient-to-r from-red-500 to-red-600 bg-clip-text text-transparent;
+    }
+    /* Shadow Utilities */
+    .shadow-financial {
+        box-shadow: var(--shadow-financial);
+    }
+    /* Animation Utilities */
+    .animate-fade-in-up {
+        animation: fadeInUp 0.6s ease-out forwards;
+    }
+    .animate-bounce-gentle {
+        animation: bounceGentle 2s infinite;
+    }
+    /* Transition Utilities */
+    .transition-financial {
+        transition: var(--transition-base);
+    }
+    .transition-smooth {
+        transition: var(--transition-smooth);
+    }
+    /* Chart Responsive Utilities */
+    .chart-responsive {
+        @apply w-full h-64 md: h-80 lg: h-96;
+    }
+    .chart-responsive-small {
+        @apply w-full h-48 md: h-64 lg: h-80;
+    }
+}
+
+
+/* Keyframe Animations */
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounceGentle {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+
+/* Chart.js and Recharts Styling Overrides */
+
+.recharts-wrapper {
+    font-family: 'Google Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif !important;
+}
+
+.recharts-tooltip-wrapper {
+    font-family: 'Google Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif !important;
+}
+
+.recharts-legend-wrapper {
+    font-family: 'Google Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif !important;
+}
+
+
+/* Custom Scrollbar for Better UX */
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground) / 0.3);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.5);
+}
+
+
+/* Print Styles for Financial Reports */
+
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    .print-friendly {
+        @apply bg-white text-black shadow-none;
+    }
+    .chart-container {
+        @apply border border-gray-300;
+    }
+}
+
+
+/* Accessibility Improvements */
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+
+/* High Contrast Mode Support */
+
+@media (prefers-contrast: high) {
+    .chart-container {
+        @apply border-2 border-foreground;
+    }
+    .metric-card {
+        @apply border-2 border-foreground;
+    }
 }

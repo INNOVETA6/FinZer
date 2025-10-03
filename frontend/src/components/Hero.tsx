@@ -1,10 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import hero from "../assets/videos/hero-video.mp4";
-
+import FinancialChatbot from "./FinancialChatbot";
 
 const Hero = () => {
   return (
+    <>
+    <FinancialChatbot/>
     <section className="pt-32 pb-20 px-4 lg:px-8">
       <div className="container mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -48,6 +50,7 @@ const Hero = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 
