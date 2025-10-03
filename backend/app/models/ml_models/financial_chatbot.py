@@ -17,10 +17,10 @@ logger = logging.getLogger(__name__)
 # Configuration
 # -------------------------
 class ChatbotConfig:
-    GROQ_API_KEY = os.getenv("GROQ_API_KEY", "REMOVED_SECRET")
+    GROQ_API_KEY = settings.GROQ_API_KEY
     GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
     GROQ_MODEL = "llama-3.1-8b-instant"
-    ENABLED = getattr(settings, 'ENABLE_CHATBOT_MODEL', True)
+    ENABLED = settings.ENABLE_CHATBOT_MODEL
 
 # -------------------------
 # Direct Groq API Client

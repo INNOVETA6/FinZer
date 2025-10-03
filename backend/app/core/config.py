@@ -1,4 +1,6 @@
+import os
 from pydantic_settings import BaseSettings
+
 from typing import List, Optional
 from pathlib import Path
 
@@ -12,8 +14,8 @@ class Settings(BaseSettings):
     API_DESCRIPTION: str = "AI-powered budget categorization and financial planning API"
     
     # AI / ML API Keys
-    GROQ_API_KEY: Optional[str] = None
-    ENABLE_CHATBOT_MODEL: bool = False
+    GROQ_API_KEY: str = os.getenv("GROQ_API_KEY")
+    ENABLE_CHATBOT_MODEL: bool = os.getenv("ENABLE_CHATBOT_MODEL", "False").lower() in ("true", "1", "yes")
 
     # CORS Configuration
     ALLOWED_ORIGINS: List[str] = [
