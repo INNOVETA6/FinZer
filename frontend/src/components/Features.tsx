@@ -33,7 +33,7 @@ const features = [
 
 const Features = () => {
   return (
-    <section id="features" className="py-20 mt-7 px-4 lg:px-8 bg-muted/30" style={{ fontFamily: "Google Sans, sans-serif", fontWeight: 500 }}>
+    <section id="features" className="py-20 mt-14 px-4 lg:px-8 bg-muted/30" style={{ fontFamily: "Google Sans, sans-serif", fontWeight: 500 }}>
 
 
       <div className="container mx-auto">

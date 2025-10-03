@@ -321,78 +321,81 @@ const Header = () => {
       />
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
-      <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur-md supports-[backdrop-filter]:bg-white/80 shadow-sm">
+      <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur-md supports-[backdrop-filter]:bg-white/80 shadow-lg shadow-blue-500/20">
         <div className="container flex h-16 items-center justify-between px-6">
           {/* Logo */}
           <Link
             to="/"
-            className="flex items-center space-x-3 transition-all duration-300 hover:opacity-80"
+            className="flex items-center space-x-3 transition-transform duration-300 hover:scale-105 hover:opacity-90"
           >
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 shadow-lg">
-              <School className="h-5 w-5 text-white" />
+            <div className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 shadow-md hover:shadow-lg transition-shadow duration-300">
+              <School className="h-6 w-6 text-white" />
             </div>
             <div className="flex flex-col">
               <span
-                className="text-2xl font-medium text-gray-800"
-                style={{ fontFamily: "Google Sans, sans-serif", fontWeight: 500 }}
+                className="text-[22px] font-semibold text-gray-800 tracking-tight"
+                style={{ fontFamily: "Google Sans, sans-serif" }}
               >
                 FinZer
               </span>
               <span
-                className="text-xs text-blue-600 -mt-1"
-                style={{ fontFamily: "Roboto, sans-serif", fontWeight: 400 }}
+                className="text-[13px] text-blue-600 -mt-0.5"
+                style={{ fontFamily: "Roboto, sans-serif" }}
               >
                 Powered by AI
               </span>
             </div>
           </Link>
+        
+
 
           {/* Navigation Links - Only show when authenticated */}
-          {isAuthenticated && (
-            <nav className="hidden md:flex items-center space-x-4 font-bold">
-              <Link
-                to="/dashboard"
-                className="flex items-center space-x-1.5 px-3 py-2 text-sm font-medium text-gray-700 rounded-full transition-all duration-200 hover:bg-blue-50 hover:text-blue-600 active:bg-blue-100"
-                style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
-              >
-                <LayoutDashboard className="h-4 w-4" />
-                <span>Dashboard</span>
-              </Link>
-              <Link
-                to="/budget-planner"
-                className="flex items-center space-x-1.5 px-3 py-2 text-sm font-medium text-gray-700 rounded-full transition-all duration-200 hover:bg-blue-50 hover:text-blue-600 active:bg-blue-100"
-                style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
-              >
-                <TrendingUp className="h-4 w-4" />
-                <span>Budget Planner</span>
-              </Link>
-              <Link
-                to="/investments"
-                className="flex items-center space-x-1.5 px-3 py-2 text-sm font-medium text-gray-700 rounded-full transition-all duration-200 hover:bg-blue-50 hover:text-blue-600 active:bg-blue-100"
-                style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
-              >
-                <span className="material-icons text-base">psychology</span>
-                <span>Investments</span>
-              </Link>
-              <Link
-                to="/resume-builder"
-                className="flex items-center space-x-1.5 px-3 py-2 text-sm font-medium text-gray-700 rounded-full transition-all duration-200 hover:bg-blue-50 hover:text-blue-600 active:bg-blue-100"
-                style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
-              >
-                <FileText className="h-4 w-4" />
-                <span>Resume</span>
-              </Link>
-              <Link
-                to="/learning-hub"
-                className="flex items-center space-x-1.5 px-3 py-2 text-sm font-medium text-gray-700 rounded-full transition-all duration-200 hover:bg-blue-50 hover:text-blue-600 active:bg-blue-100"
-                style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
-              >
-                <Users className="h-4 w-4" />
-                <span>Learning Hub</span>
-              </Link>
-            </nav>
+          
+          <nav className="hidden md:flex items-center space-x-4 font-bold">
+            <Link
+              to="/dashboard"
+              className="flex items-center space-x-1.5 px-3 py-2 text-[15px] font-medium text-gray-700 rounded-full transition-all duration-200 hover:bg-blue-50 hover:text-blue-600 hover:scale-105 active:bg-blue-100"
+              style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
+            >
+              <LayoutDashboard className="h-4 w-4" />
+              <span>Dashboard</span>
+            </Link>
+            <Link
+              to="/budget-planner"
+              className="flex items-center space-x-1.5 px-3 py-2 text-[15px] font-medium text-gray-700 rounded-full transition-all duration-200 hover:bg-blue-50 hover:text-blue-600 hover:scale-105 active:bg-blue-100"
+              style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
+            >
+              <TrendingUp className="h-4 w-4" />
+              <span>Budget Planner</span>
+            </Link>
+            <Link
+              to="/investments"
+              className="flex items-center space-x-1.5 px-3 py-2 text-[15px] font-medium text-gray-700 rounded-full transition-all duration-200 hover:bg-blue-50 hover:text-blue-600 hover:scale-105 active:bg-blue-100"
+              style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
+            >
+              <span className="material-icons text-base">psychology</span>
+              <span>Investments</span>
+            </Link>
+            <Link
+              to="/resume-builder"
+              className="flex items-center space-x-1.5 px-3 py-2 text-[15px] font-medium text-gray-700 rounded-full transition-all duration-200 hover:bg-blue-50 hover:text-blue-600 hover:scale-105 active:bg-blue-100"
+              style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
+            >
+              <FileText className="h-4 w-4" />
+              <span>Resume</span>
+            </Link>
+            <Link
+              to="/learning-hub"
+              className="flex items-center space-x-1.5 px-3 py-2 text-[15px] font-medium text-gray-700 rounded-full transition-all duration-200 hover:bg-blue-50 hover:text-blue-600 hover:scale-105 active:bg-blue-100"
+              style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
+            >
+              <Users className="h-4 w-4" />
+              <span>Learning Hub</span>
+            </Link>
+          </nav>
+
             
-          )}
+          
           {/* Right Side Actions */}
           <div className="flex items-center space-x-1">
             {/* Search Button - Always visible */}
@@ -666,7 +669,7 @@ const Header = () => {
                 </div>
 
                 {/* Mobile Navigation Links - Only when authenticated */}
-                {isAuthenticated && (
+                
                   <>
                     <Link
                       to="/dashboard"
@@ -695,15 +698,7 @@ const Header = () => {
                       <span className="material-icons text-lg text-red-600">psychology</span>
                       <span>Investments</span>
                     </Link>
-                    <Link
-                      to="/resume-builder"
-                      className="flex items-center space-x-3 px-4 py-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50"
-                      style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      <FileText className="h-5 w-5 text-yellow-600" />
-                      <span>Resume Builder</span>
-                    </Link>
+                    
                     <Link
                       to="/learning-hub"
                       className="flex items-center space-x-3 px-4 py-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50"
@@ -714,7 +709,7 @@ const Header = () => {
                       <span>Learning Hub</span>
                     </Link>
                   </>
-                )}
+                
 
                 {/* Mobile Auth Section */}
                 {!isLoading && (

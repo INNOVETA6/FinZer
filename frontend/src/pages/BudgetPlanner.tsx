@@ -375,9 +375,10 @@ const BudgetPlanner: React.FC = () => {
         {/* Header Section */}
         <header className="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-6 lg:space-y-0">
           <div className="space-y-2">
-            <h1 className="text-4xl lg:text-5xl font-bold text-gradient-primary">
+            <h1 className="text-4xl lg:text-5xl font-bold text-gradient-primary ">
               Budget Planner
             </h1>
+            
             <p className="text-lg text-muted-foreground font-medium">
               Take control of your finances with smart budget planning
             </p>
