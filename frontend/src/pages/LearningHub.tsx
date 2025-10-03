@@ -535,7 +535,7 @@ const LearningHub = () => {
                                 color: "#202124"
                             }}
                         >
-                            Visual Guides 📊
+                            Visual Guides 
                         </h2>
                         <div className="relative">
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
