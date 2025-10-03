@@ -299,10 +299,10 @@ const Header = () => {
             </div>
             <div className="flex flex-col">
               <span
-                className="text-xl font-medium text-gray-800"
+                className="text-2xl font-medium text-gray-800"
                 style={{ fontFamily: "Google Sans, sans-serif", fontWeight: 500 }}
               >
-                Student Advisor
+                FinZer
               </span>
               <span
                 className="text-xs text-blue-600 -mt-1"
@@ -314,7 +314,7 @@ const Header = () => {
           </Link>
 
           {/* Google Material Navigation - Desktop - TIGHTER SPACING */}
-          <nav className="hidden md:flex items-center space-x-0.5">
+          <nav className="hidden md:flex items-center space-x-4 font-bold">
             <Link
               to="/dashboard"
               className="flex items-center space-x-1.5 px-3 py-2 text-sm font-medium text-gray-700 rounded-full transition-all duration-200 hover:bg-blue-50 hover:text-blue-600 active:bg-blue-100"

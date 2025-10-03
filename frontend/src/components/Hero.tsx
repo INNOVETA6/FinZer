@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import heroImage from "@/assets/hero-illustration.jpg";
+import hero from "../assets/videos/hero-video.mp4";
+
 
 const Hero = () => {
   return (
@@ -34,11 +35,15 @@ const Hero = () => {
           {/* Right Illustration */}
           <div className="relative animate-scale-in">
             <div className="absolute inset-0 bg-gradient-primary opacity-20 blur-3xl rounded-full"></div>
-            <img
-              src={heroImage}
-              alt="Financial planning illustration"
+            <video
+              src={hero}
               className="relative z-10 w-full h-auto rounded-2xl shadow-xl"
+              autoPlay
+              loop
+              muted
+              playsInline
             />
+
           </div>
         </div>
       </div>
