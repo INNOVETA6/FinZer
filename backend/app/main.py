@@ -12,6 +12,8 @@ from app.core.config import settings
 from app.utils.logger import setup_logging
 from app.api.routers import budget
 from app.models.ml_models.budget_categorizer import budget_categorizer
+from app.api.routers import budget, investment 
+
 
 # Setup logging
 logger = setup_logging()
@@ -97,6 +99,7 @@ async def internal_server_error_handler(request: Request, exc: Exception):
 
 # Include routers
 app.include_router(budget.router, prefix="/api/v1")
+app.include_router(investment.router, prefix="/api/v1")
 
 # Root endpoint
 @app.get("/", tags=["Root"])
