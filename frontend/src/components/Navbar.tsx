@@ -335,51 +335,6 @@ const Header = () => {
 
 
           {/* Navigation Links - Only show when authenticated */}
-<<<<<<< HEAD
-          {isAuthenticated && (
-            <nav className="hidden md:flex items-center space-x-4 font-bold">
-              <Link
-                to="/dashboard"
-                className="flex items-center space-x-1.5 px-3 py-2 text-sm font-medium text-gray-700 rounded-full transition-all duration-200 hover:bg-blue-50 hover:text-blue-600 active:bg-blue-100"
-                style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
-              >
-                <LayoutDashboard className="h-4 w-4" />
-                <span>Dashboard</span>
-              </Link>
-              <Link
-                to="/budget-planner"
-                className="flex items-center space-x-1.5 px-3 py-2 text-sm font-medium text-gray-700 rounded-full transition-all duration-200 hover:bg-blue-50 hover:text-blue-600 active:bg-blue-100"
-                style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
-              >
-                <TrendingUp className="h-4 w-4" />
-                <span>Budget Planner</span>
-              </Link>
-              <Link
-                to="/investments"
-                className="flex items-center space-x-1.5 px-3 py-2 text-sm font-medium text-gray-700 rounded-full transition-all duration-200 hover:bg-blue-50 hover:text-blue-600 active:bg-blue-100"
-                style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
-              >
-                <span className="material-icons text-base">psychology</span>
-                <span>Investments</span>
-              </Link>
-              <Link
-                to="/chatbot"
-                className="flex items-center space-x-1.5 px-3 py-2 text-sm font-medium text-gray-700 rounded-full transition-all duration-200 hover:bg-blue-50 hover:text-blue-600 active:bg-blue-100"
-                style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
-              >
-                <FileText className="h-4 w-4" />
-                <span>ChatBot</span>
-              </Link>
-              <Link
-                to="/learning-hub"
-                className="flex items-center space-x-1.5 px-3 py-2 text-sm font-medium text-gray-700 rounded-full transition-all duration-200 hover:bg-blue-50 hover:text-blue-600 active:bg-blue-100"
-                style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
-              >
-                <Users className="h-4 w-4" />
-                <span>Learning Hub</span>
-              </Link>
-            </nav>
-=======
           
           <nav className="hidden md:flex items-center space-x-4 font-bold">
             <Link
@@ -407,12 +362,12 @@ const Header = () => {
               <span>Investments</span>
             </Link>
             <Link
-              to="/resume-builder"
+              to="/chatbot"
               className="flex items-center space-x-1.5 px-3 py-2 text-[15px] font-medium text-gray-700 rounded-full transition-all duration-200 hover:bg-blue-50 hover:text-blue-600 hover:scale-105 active:bg-blue-100"
               style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
             >
               <FileText className="h-4 w-4" />
-              <span>Resume</span>
+              <span>ChatBot</span>
             </Link>
             <Link
               to="/learning-hub"
@@ -424,7 +379,6 @@ const Header = () => {
             </Link>
           </nav>
 
->>>>>>> 54827f6114220b2430cd85aa1cc4bf73083029ee
             
           
           {/* Right Side Actions */}
@@ -729,19 +683,7 @@ const Header = () => {
                       <span className="material-icons text-lg text-red-600">psychology</span>
                       <span>Investments</span>
                     </Link>
-<<<<<<< HEAD
-                    <Link
-                      to="/chatbot"
-                      className="flex items-center space-x-3 px-4 py-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50"
-                      style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      <FileText className="h-5 w-5 text-yellow-600" />
-                      <span>ChatBot</span>
-                    </Link>
-=======
                     
->>>>>>> 54827f6114220b2430cd85aa1cc4bf73083029ee
                     <Link
                       to="/learning-hub"
                       className="flex items-center space-x-3 px-4 py-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50"
