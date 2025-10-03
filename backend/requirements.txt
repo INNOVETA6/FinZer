@@ -20,3 +20,5 @@ python-dotenv
 celery
 
 httpx
+requests
+groq

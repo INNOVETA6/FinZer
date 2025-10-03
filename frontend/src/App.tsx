@@ -12,6 +12,7 @@ import InvestmentsPage from "./pages/InvestmentsPage";
 import ProfilePage from "./pages/ProfilePage";
 import LearningHub from "./pages/LearningHub";
 import SignUp from "./pages/SignUp";
+import FinancialChatbot from "./components/FinancialChatbot";
 
 
 const queryClient = new QueryClient();
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="/investments" element={<InvestmentsPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="learning-hub" element={<LearningHub />} />
+          <Route path="/chatbot" element={<FinancialChatbot />} />
           
           <Route path="*" element={<NotFound />} />
         </Routes>

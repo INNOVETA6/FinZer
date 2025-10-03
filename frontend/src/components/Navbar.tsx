@@ -14,6 +14,7 @@ import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SignUp from "@/pages/SignUp";
 
+
 const Header = () => {
   // ============================================================
   // 🔧 AUTHENTICATION SETUP WITH PERSISTENCE
@@ -92,24 +93,8 @@ const Header = () => {
       read: false,
       actionUrl: "/budget-planner",
     },
-    {
-      id: 3,
-      title: "Resume Analysis Complete",
-      message: "Your resume has been analyzed. View detailed insights and recommendations.",
-      time: "3 hours ago",
-      type: "analysis",
-      read: true,
-      actionUrl: "/resume-builder",
-    },
-    {
-      id: 4,
-      title: "Learning Assessment Available",
-      message: "A new investment tip is now available for you to take.",
-      time: "1 day ago",
-      type: "learning hub",
-      read: false,
-      actionUrl: "/learning-hub",
-    },
+    
+    
   ];
 
   // Initialize notifications on component mount
@@ -375,12 +360,12 @@ const Header = () => {
                 <span>Investments</span>
               </Link>
               <Link
-                to="/resume-builder"
+                to="/chatbot"
                 className="flex items-center space-x-1.5 px-3 py-2 text-sm font-medium text-gray-700 rounded-full transition-all duration-200 hover:bg-blue-50 hover:text-blue-600 active:bg-blue-100"
                 style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
               >
                 <FileText className="h-4 w-4" />
-                <span>Resume</span>
+                <span>ChatBot</span>
               </Link>
               <Link
                 to="/learning-hub"
@@ -696,13 +681,13 @@ const Header = () => {
                       <span>Investments</span>
                     </Link>
                     <Link
-                      to="/resume-builder"
+                      to="/chatbot"
                       className="flex items-center space-x-3 px-4 py-3 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50"
                       style={{ fontFamily: "Roboto, sans-serif", fontWeight: 500 }}
                       onClick={() => setIsMenuOpen(false)}
                     >
                       <FileText className="h-5 w-5 text-yellow-600" />
-                      <span>Resume Builder</span>
+                      <span>ChatBot</span>
                     </Link>
                     <Link
                       to="/learning-hub"

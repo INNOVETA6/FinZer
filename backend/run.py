@@ -18,8 +18,8 @@ def main():
     """Main function to run the API server"""
     print("🏦 Financial Literacy Budget Planner API")
     print("=" * 50)
-    print(f"🌐 Server: http://{settings.API_HOST}:{settings.API_PORT}")
-    print(f"📚 Docs: http://{settings.API_HOST}:{settings.API_PORT}/docs")
+    print(f"🌐 Server: http://{settings.HOST}:{settings.PORT}")
+    print(f"📚 Docs: http://{settings.HOST}:{settings.PORT}/docs")
     print(f"🔧 Debug Mode: {settings.API_DEBUG}")
     print("=" * 50)
     

@@ -12,6 +12,9 @@ class Settings(BaseSettings):
     API_VERSION: str = "1.0.0"
     API_DESCRIPTION: str = "AI-powered budget categorization and financial planning API"
     
+    GROQ_API_KEY: str = "REMOVED_SECRET"
+    ENABLE_CHATBOT_MODEL: bool = False
+
     # CORS Configuration
     ALLOWED_ORIGINS: List[str] = [
         "http://localhost:3000",
@@ -45,6 +48,8 @@ class Settings(BaseSettings):
     class Config:
         env_file = ".env"
         case_sensitive = True
+        
+        
 
 # Create settings instance
 settings = Settings()

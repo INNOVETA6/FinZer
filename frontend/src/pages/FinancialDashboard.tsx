@@ -183,7 +183,7 @@ const FinancialDashboard: React.FC = () => {
   return (
     <>
     <Header />
-    <FinancialChatbot />
+
     <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-muted/40 p-4 md:p-6 lg:p-8 font-sans">
       {/* Header Section */}
       <div className="max-w-7xl mx-auto space-y-8">
