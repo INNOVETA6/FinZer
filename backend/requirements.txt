@@ -1,0 +1,22 @@
+# Web Framework
+fastapi
+uvicorn[standard]
+
+scikit-learn
+pandas
+numpy
+joblib
+# Data Validation
+pydantic
+pydantic-settings
+
+# CORS and Middleware
+python-multipart
+
+# Logging and Monitoring
+python-json-logger
+python-dotenv
+
+celery
+
+httpx
