@@ -13,6 +13,17 @@ class Settings(BaseSettings):
     API_VERSION: str = "1.0.0"
     API_DESCRIPTION: str = "AI-powered budget categorization and financial planning API"
     
+      # Security Configuration
+    SECRET_KEY: str = "your-super-secret-key-change-in-production-2025-finzer"
+    ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
+    REFRESH_TOKEN_EXPIRE_DAYS: int = 7
+    
+    # Database Configuration
+    MONGODB_URL: str = "mongodb://localhost:27017"
+    DATABASE_NAME: str = "finzer_db"
+    
+    
     # AI / ML API Keys
     GROQ_API_KEY: str = os.getenv("GROQ_API_KEY")
     ENABLE_CHATBOT_MODEL: bool = os.getenv("ENABLE_CHATBOT_MODEL", "False").lower() in ("true", "1", "yes")
@@ -57,3 +68,7 @@ settings = Settings()
 import os
 os.makedirs(settings.ML_MODEL_PATH, exist_ok=True)
 os.makedirs(Path(settings.LOG_FILE).parent, exist_ok=True)
+
+print(f"✅ Settings loaded: {settings.API_TITLE} v{settings.API_VERSION}")
+print(f"✅ Database: {settings.DATABASE_NAME}")
+print(f"✅ MongoDB URL: {settings.MONGODB_URL}")
