@@ -14,11 +14,8 @@ const Footer = () => {
           {/* Brand & Description */}
           <div className="space-y-6">
             <div className="flex items-center space-x-2">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary/80 shadow-lg flex items-center justify-center">
-                <div className="w-6 h-6 bg-white/90 rounded"></div>
-              </div>
-              <span className="text-2xl font-bold text-white">
-                Financial<span className="text-primary">Advisor</span>
+              <span className="text-4xl font-bold text-white">
+                Fin<span className="text-primary">Zer</span>
               </span>
             </div>
             <p className="text-sm text-white/70 leading-relaxed">

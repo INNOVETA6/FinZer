@@ -13,6 +13,7 @@ import {
 import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SignUp from "@/pages/SignUp";
+import logo from "../assets/images/logo.png";
 
 
 const Header = () => {
@@ -308,13 +309,17 @@ const Header = () => {
 
       <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur-md supports-[backdrop-filter]:bg-white/80 shadow-lg shadow-blue-500/20">
         <div className="container flex h-16 items-center justify-between px-6">
-          {/* Logo */}
+          {}
           <Link
             to="/"
             className="flex items-center space-x-3 transition-transform duration-300 hover:scale-105 hover:opacity-90"
           >
-            <div className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 shadow-md hover:shadow-lg transition-shadow duration-300">
-              <School className="h-6 w-6 text-white" />
+            <div className="flex h-11 w-11 items-center justify-center  bg-white  hover:shadow-lg transition-shadow duration-300">
+              <img
+                src={logo}   // <-- put your logo file inside public/logo.png
+                alt="FinZer Logo"
+                className="h-11 w-11 object-contain"
+              />
             </div>
             <div className="flex flex-col">
               <span
@@ -331,6 +336,7 @@ const Header = () => {
               </span>
             </div>
           </Link>
+
         
 
 

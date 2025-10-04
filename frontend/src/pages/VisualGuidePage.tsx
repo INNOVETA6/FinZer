@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 // If alias isn't configured, use relative path: "../data/learningHub"
 import { infographics } from "@/data/Learningdata";
 
+
 export default function VisualGuidePage() {
     const { id } = useParams();
     const guide = infographics.find((g) => String(g.id) === String(id));
