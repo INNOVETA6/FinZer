@@ -611,7 +611,7 @@ const ProfessionalBudgetDashboard: React.FC = () => {
 
   return (
     <>
-      <Header />
+      
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-slate-900 dark:via-slate-800 dark:to-indigo-900">
         <div className="max-w-[2000px] mx-auto p-4 space-y-6">
           

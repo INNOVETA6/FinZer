@@ -1,114 +1,253 @@
-// src/hooks/useAuth.tsx
-import React, { useState, useEffect, createContext, useContext } from 'react';
-import { profileService, UserProfile } from '@/services/profileService';
+// src/hooks/useAuth.ts (Fixed - Simple Version)
+import { useState, useEffect } from 'react';
 
 interface User {
-  id: string;
+  id?: string;
+  firstName?: string;
+  lastName?: string;
+  name?: string;
   email: string;
-  name: string;
 }
 
-interface AuthContextType {
-  isAuthenticated: boolean;
+interface UserProfile {
+  personalInfo?: {
+    name?: string;
+    email?: string;
+    phone?: string;
+  };
+  careerInfo?: {
+    currentRole?: string;
+    experience?: string;
+  };
+  academicBackground?: {
+    degree?: string;
+    fieldOfStudy?: string;
+  };
+}
+
+interface AuthState {
   user: User | null;
   profile: UserProfile | null;
+  isAuthenticated: boolean;
   loading: boolean;
-  login: (userData: User) => void;
-  logout: () => void;
-  refreshProfile: () => Promise<void>;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+// Create a simple state management for auth
+class AuthManager {
+  private state: AuthState = {
+    user: null,
+    profile: null,
+    isAuthenticated: false,
+    loading: true,
+  };
 
-export const useAuth = (): AuthContextType => {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
+  private listeners: Array<(state: AuthState) => void> = [];
+
+  constructor() {
+    this.initializeAuth();
   }
-  return context;
-};
 
-interface AuthProviderProps {
-  children: React.ReactNode;
-}
+  // Subscribe to state changes
+  subscribe(listener: (state: AuthState) => void) {
+    this.listeners.push(listener);
+    return () => {
+      this.listeners = this.listeners.filter(l => l !== listener);
+    };
+  }
 
-export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    return localStorage.getItem('isAuthenticated') === 'true';
-  });
-  
-  const [user, setUser] = useState<User | null>(() => {
-    const savedUser = localStorage.getItem('user');
-    return savedUser ? JSON.parse(savedUser) : null;
-  });
-  
-  const [profile, setProfile] = useState<UserProfile | null>(null);
-  const [loading, setLoading] = useState(true);
+  // Get current state
+  getState(): AuthState {
+    return { ...this.state };
+  }
 
-  // Initialize on mount
-  useEffect(() => {
-    initializeAuth();
-  }, []);
+  // Notify all listeners of state change
+  private notify() {
+    this.listeners.forEach(listener => listener(this.getState()));
+  }
 
-  const initializeAuth = async () => {
+  // Set state and notify
+  private setState(newState: Partial<AuthState>) {
+    this.state = { ...this.state, ...newState };
+    this.notify();
+  }
+
+  // Initialize authentication from localStorage
+  private async initializeAuth() {
     try {
-      setLoading(true);
-      
-      if (isAuthenticated && user) {
-        // Load full profile data
+      this.setState({ loading: true });
+
+      const savedAuth = localStorage.getItem('isAuthenticated');
+      const savedUser = localStorage.getItem('user');
+      const savedProfile = localStorage.getItem('userProfile'); // 🔥 Get profile from localStorage
+
+      if (savedAuth === 'true' && savedUser) {
         try {
-          const profileData = await profileService.getProfile();
-          setProfile(profileData);
+          const user = JSON.parse(savedUser);
+          this.setState({ 
+            user, 
+            isAuthenticated: true 
+          });
+
+          console.log('🔄 Loading profile for:', user.email || user.name);
+
+          // 🔥 Load profile from localStorage first
+          if (savedProfile) {
+            try {
+              const profile = JSON.parse(savedProfile);
+              this.setState({ profile });
+              console.log('✅ Profile loaded from localStorage:', profile?.personalInfo?.name || user.name);
+            } catch (error) {
+              console.warn('⚠️ Error parsing saved profile:', error);
+            }
+          }
+
+          // 🔥 Create a basic profile if none exists
+          if (!this.state.profile) {
+            const basicProfile: UserProfile = {
+              personalInfo: {
+                name: user.name || `${user.firstName} ${user.lastName}`.trim() || user.email?.split('@')[0] || 'User',
+                email: user.email,
+                phone: user.phone || undefined
+              },
+              careerInfo: {
+                currentRole: undefined,
+                experience: undefined
+              },
+              academicBackground: {
+                degree: undefined,
+                fieldOfStudy: undefined
+              }
+            };
+
+            this.setState({ profile: basicProfile });
+            // Save to localStorage for future use
+            localStorage.setItem('userProfile', JSON.stringify(basicProfile));
+            console.log('✅ Basic profile created for navbar:', basicProfile.personalInfo.name);
+          }
+
         } catch (error) {
-          console.warn('Could not load profile:', error);
+          console.error('Error parsing saved user:', error);
+          this.clearAuth();
         }
       }
     } catch (error) {
       console.error('Failed to initialize auth:', error);
-      logout();
+      this.clearAuth();
     } finally {
-      setLoading(false);
+      this.setState({ loading: false });
     }
-  };
+  }
 
-  const login = (userData: User) => {
-    setUser(userData);
-    setIsAuthenticated(true);
-    localStorage.setItem('isAuthenticated', 'true');
-    localStorage.setItem('user', JSON.stringify(userData));
-    
-    // Load profile data after login
-    refreshProfile();
-  };
+  // Login method
+  async login(userData: User): Promise<void> {
+    try {
+      console.log('🚀 Logging in user:', userData.email);
 
-  const logout = () => {
-    setUser(null);
-    setProfile(null);
-    setIsAuthenticated(false);
+      this.setState({
+        user: userData,
+        isAuthenticated: true
+      });
+
+      localStorage.setItem('isAuthenticated', 'true');
+      localStorage.setItem('user', JSON.stringify(userData));
+
+      // 🔥 Create profile from user data
+      const profile: UserProfile = {
+        personalInfo: {
+          name: userData.name || `${userData.firstName} ${userData.lastName}`.trim() || userData.email?.split('@')[0] || 'User',
+          email: userData.email
+        },
+        careerInfo: {},
+        academicBackground: {}
+      };
+
+      this.setState({ profile });
+      localStorage.setItem('userProfile', JSON.stringify(profile));
+
+      console.log('✅ Login successful');
+    } catch (error) {
+      console.error('❌ Login failed:', error);
+      throw error;
+    }
+  }
+
+  // Logout method
+  logout(): void {
+    console.log('👋 Logging out user');
+    this.clearAuth();
+  }
+
+  // Clear authentication data
+  private clearAuth(): void {
+    this.setState({
+      user: null,
+      profile: null,
+      isAuthenticated: false
+    });
     localStorage.removeItem('isAuthenticated');
     localStorage.removeItem('user');
-  };
+    localStorage.removeItem('userProfile'); // 🔥 Clear profile too
+  }
 
-  const refreshProfile = async () => {
-    if (!isAuthenticated) return;
+  // Refresh profile data
+  async refreshProfile(): Promise<void> {
+    const { isAuthenticated, user } = this.state;
     
-    try {
-      const profileData = await profileService.getProfile();
-      setProfile(profileData);
-    } catch (error) {
-      console.error('Failed to refresh profile:', error);
+    if (!isAuthenticated || !user?.email) {
+      console.warn('⚠️ Cannot refresh profile: user not authenticated');
+      return;
     }
-  };
 
-  const value: AuthContextType = {
-    isAuthenticated,
-    user,
-    profile,
-    loading,
-    login,
-    logout,
-    refreshProfile,
-  };
+    try {
+      console.log('🔄 Refreshing profile...');
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+      // 🔥 Get profile from localStorage or create basic one
+      const savedProfile = localStorage.getItem('userProfile');
+      let profile: UserProfile;
+
+      if (savedProfile) {
+        profile = JSON.parse(savedProfile);
+      } else {
+        // Create basic profile
+        profile = {
+          personalInfo: {
+            name: user.name || `${user.firstName} ${user.lastName}`.trim() || user.email?.split('@')[0] || 'User',
+            email: user.email
+          },
+          careerInfo: {},
+          academicBackground: {}
+        };
+        localStorage.setItem('userProfile', JSON.stringify(profile));
+      }
+
+      this.setState({ profile });
+      console.log('✅ Profile refreshed for navbar');
+    } catch (error) {
+      console.error('❌ Failed to refresh profile:', error);
+    }
+  }
+}
+
+// Create singleton instance
+const authManager = new AuthManager();
+
+// Custom hook to use auth
+export const useAuth = () => {
+  const [authState, setAuthState] = useState<AuthState>(authManager.getState());
+
+  useEffect(() => {
+    // Subscribe to auth state changes
+    const unsubscribe = authManager.subscribe(setAuthState);
+    return unsubscribe;
+  }, []);
+
+  return {
+    ...authState,
+    login: authManager.login.bind(authManager),
+    logout: authManager.logout.bind(authManager),
+    refreshProfile: authManager.refreshProfile.bind(authManager),
+  };
 };
+
+// Export types
+export type { User, UserProfile };

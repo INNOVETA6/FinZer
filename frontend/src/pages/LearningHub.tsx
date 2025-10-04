@@ -87,7 +87,7 @@ const LearningHub = () => {
 
     return (
         <>
-            <Header />
+           
             <div className="min-h-screen" style={{ backgroundColor: "#ffffff" }}>
                 {/* Hero Section */}
                 <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-blue-50 py-20 px-6">

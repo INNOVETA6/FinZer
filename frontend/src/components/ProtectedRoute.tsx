@@ -1,16 +1,20 @@
+// src/components/ProtectedRoute.tsx - Updated
 import { Navigate } from 'react-router-dom';
+import DynamicNavbar from './DynamicNavbar'; // 🔥 Use the new dynamic navbar
 
 const ProtectedRoute = ({ children }) => {
-    // Check authentication status from localStorage
     const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
 
-    // If not authenticated, redirect to landing page
     if (!isAuthenticated) {
-        return <Navigate to="/sign-up" replace />;
+        return <Navigate to="/sign-in" replace />;
     }
 
-    // If authenticated, render the protected component
-    return children;
+    return (
+        <>
+            <DynamicNavbar />
+            {children}
+        </>
+    );
 };
 
 export default ProtectedRoute;
