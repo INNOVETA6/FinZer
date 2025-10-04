@@ -11,6 +11,9 @@ import InvestmentsPage from "./pages/InvestmentsPage";
 import ProfilePage from "./pages/ProfilePage";
 import LearningHub from "./pages/LearningHub";
 import SignUp from "./pages/SignUp";
+import SignIn from "./pages/SignIn";
+import ForgotPassword from "./pages/ForgotPassword"; 
+import ResetPassword from "./pages/ResetPassword"; 
 import ProtectedRoute from "./components/ProtectedRoute";
 import FinancialChatbot from "./components/FinancialChatbot";
 const queryClient = new QueryClient();
@@ -25,6 +28,9 @@ const App = () => (
           {/* Public Routes */}
           <Route path="/" element={<Index />} />
           <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
 
           {/* Protected Routes */}
           <Route
