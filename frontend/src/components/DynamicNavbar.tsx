@@ -16,6 +16,7 @@ import SignUp from "@/pages/SignUp";
 import logo from "../assets/images/logo.png";
 
 
+
 const Header = () => {
   // ============================================================
   // 🔧 AUTHENTICATION SETUP WITH PERSISTENCE

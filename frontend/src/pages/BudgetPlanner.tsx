@@ -78,7 +78,8 @@ import {
   Minus,
   Star,
   Bookmark,
-  Share2
+  Share2,
+  IndianRupee
 } from 'lucide-react';
 import Header from '@/components/DynamicNavbar';
 
@@ -210,9 +211,9 @@ const getCategoryColor = (category: string): string => {
 };
 
 const formatCurrency = (amount: number) => {
-  return new Intl.NumberFormat('en-US', {
+  return new Intl.NumberFormat('en-IN', {
     style: 'currency',
-    currency: 'USD',
+    currency: 'INR',
     minimumFractionDigits: 2
   }).format(amount);
 };
@@ -656,7 +657,7 @@ const ProfessionalBudgetDashboard: React.FC = () => {
                     <p className="text-3xl font-bold text-blue-900">{formatCurrency(analyticsData.totalAmount)}</p>
                     <p className="text-xs text-blue-500 mt-1">+12.5% vs last period</p>
                   </div>
-                  <DollarSign className="h-10 w-10 text-blue-500" />
+                  <IndianRupee className="h-10 w-10 text-blue-500" />
                 </div>
               </CardContent>
             </Card>
