@@ -16,7 +16,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import Header from "@/components/Navbar";
+import Header from "@/components/DynamicNavbar";
 import { Link } from "react-router-dom";
 
 // Data: if alias '@' is not configured, switch to relative imports like "../data/learningHub"

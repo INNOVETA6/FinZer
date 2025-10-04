@@ -1,6 +1,6 @@
 // src/pages/VisualGuidePage.tsx
 import { Link, useParams } from "react-router-dom";
-import Header from "@/components/Navbar";
+import Header from "@/components/DynamicNavbar";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 // If alias isn't configured, use relative path: "../data/learningHub"

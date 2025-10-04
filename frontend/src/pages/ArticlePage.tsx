@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import Header from "@/components/Navbar";
+import Header from "@/components/DynamicNavbar";
 import { articles } from "../data/Learningdata";
 import { ArrowLeft, Home, ChevronUp, Clock, Share2, Bookmark, Eye, User } from "lucide-react";
 
