@@ -16,7 +16,13 @@ import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword"; 
 import ProtectedRoute from "./components/ProtectedRoute";
 import FinancialChatbot from "./components/FinancialChatbot";
+import ArticlePage from "./pages/ArticlePage";
+import VisualGuidePage from "./pages/VisualGuidePage";
 const queryClient = new QueryClient();
+
+// main.tsx or App.tsx
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -83,6 +89,8 @@ const App = () => (
               </ProtectedRoute>
             }
           />
+          <Route path="/articles/:id" element={<ArticlePage />} />
+          <Route path="/visual-guides/:id" element={<VisualGuidePage />} />
 
           {/* 404 Route */}
           <Route path="*" element={<NotFound />} />
