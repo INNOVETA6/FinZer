@@ -1,24 +1,23 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import { useNavigate } from "react-router-dom"; // ✅ Add this import
-import hero from "../assets/videos/hero-video.mp4";
+import { useNavigate } from "react-router-dom";
 import FinancialChatbot from "./FinancialChatbot";
+import Carousel from "./Carousel";
 
 const Hero = () => {
-  const navigate = useNavigate(); // ✅ Add this hook
+  const navigate = useNavigate();
 
-  // ✅ Add handler for sign in
   const handleStartJourney = () => {
-    navigate('/sign-up'); // or use your sign-in route
-  };
-  const learninghub = () => {
-    navigate('/learning-hub'); // or use your sign-in route
+    navigate('/sign-up');
   };
 
+  const learninghub = () => {
+    navigate('/learning-hub');
+  };
 
   return (
     <>
-      <section className="pt-40 pb-20 px-4 lg:px-8">
+      <section className="pt-10 pb-20 px-4 lg:px-8">
         <div className="container mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left Content */}
@@ -41,7 +40,6 @@ const Hero = () => {
                 investment recommendations, and real-time financial insights.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                {/* ✅ Add onClick handler */}
                 <Button size="lg" onClick={handleStartJourney}>
                   Start Your Journey
                   <ArrowRight className="ml-2" />
@@ -52,17 +50,9 @@ const Hero = () => {
               </div>
             </div>
 
-            {/* Right Illustration */}
+            {/* Right Illustration - Carousel */}
             <div className="relative animate-scale-in">
-              <div className="absolute inset-0 bg-gradient-primary opacity-20 blur-3xl rounded-full"></div>
-              <video
-                src={hero}
-                className="relative z-10 w-full h-auto rounded-2xl shadow-xl"
-                autoPlay
-                loop
-                muted
-                playsInline
-              />
+              <Carousel />
             </div>
           </div>
         </div>
