@@ -28,7 +28,7 @@ const IconMap = {
     TrendingUp,
     Shield,
     Target,
-} as const;
+} as const; 
 
 // Map each visual guide to a relevant external resource
 const visualGuideLinks: Record<number, string> = {
@@ -451,7 +451,15 @@ const LearningHub = () => {
                                     <div className="p-4 flex items-center justify-between">
                                         <h3 className="text-lg font-semibold">{infographics[activeIdx].title}</h3>
                                         <div className="flex gap-2">
-                                            <Button size="sm" variant="secondary" onClick={prev}>
+                                            <Button
+                                                size="sm"
+                                                variant="secondary"
+                                                onClick={() => {
+                                                    const id = infographics[activeIdx].id;
+                                                    const url = visualGuideLinks[id];
+                                                    if (url) window.open(url, "_blank", "noopener,noreferrer");
+                                                }}
+                                            >
                                                 More
                                             </Button>
                                             <Button size="sm" variant="secondary" onClick={prev}>
