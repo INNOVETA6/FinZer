@@ -1,3 +1,4 @@
+# app/main.py
 from fastapi import FastAPI, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
@@ -6,45 +7,55 @@ from fastapi.exceptions import RequestValidationError
 from contextlib import asynccontextmanager
 import time
 import logging
-from pathlib import Path
 
 from app.core.config import settings
+from app.core.database import connect_to_mongo, close_mongo_connection, check_database_health
 from app.utils.logger import setup_logging
-from app.api.routers import budget
 from app.models.ml_models.budget_categorizer import budget_categorizer
-from app.api.routers import budget, investment , chatbot
 
+# Routers
+from app.api.routers import auth, budget, investment, chatbot
 
 # Setup logging
 logger = setup_logging()
 
-# Lifespan events for ML model management
+# Lifespan events
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Manage application lifespan events"""
+    """Manage startup & shutdown events"""
     # Startup
-    logger.info("🚀 Starting Financial Literacy Budget API...")
-    logger.info(f"📊 ML Model Status: {'Ready' if budget_categorizer.is_trained else 'Not Ready'}")
-    
-    if not budget_categorizer.is_trained:
-        logger.warning("⚠️ ML model not ready. Some features may be limited.")
-    
-    yield
-    
-    # Shutdown
-    logger.info("🛑 Shutting down Financial Literacy Budget API...")
+    logger.info(f"🚀 Starting {settings.API_TITLE} v{settings.API_VERSION}")
 
-# Create FastAPI application
+    # DB connect
+    try:
+        await connect_to_mongo()
+        logger.info("✅ Connected to MongoDB")
+    except Exception as e:
+        logger.error(f"❌ Failed to connect to database: {e}")
+        logger.error("⚠️ Application will continue but authentication may not work")
+
+    # ML model check
+    logger.info(f"📊 ML Model Status: {'Ready' if budget_categorizer.is_trained else 'Not Ready'}")
+    if not budget_categorizer.is_trained:
+        logger.warning("⚠️ ML model not ready. Some budget features may be limited.")
+
+    yield
+
+    # Shutdown
+    logger.info("🛑 Shutting down FinZer API...")
+    await close_mongo_connection()
+
+# FastAPI app instance
 app = FastAPI(
     title=settings.API_TITLE,
-    description=settings.API_DESCRIPTION,
     version=settings.API_VERSION,
+    description=settings.API_DESCRIPTION,
+    lifespan=lifespan,
     docs_url="/docs",
-    redoc_url="/redoc",
-    lifespan=lifespan
+    redoc_url="/redoc"
 )
 
-# CORS Middleware
+# CORS middleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.ALLOWED_ORIGINS,
@@ -53,7 +64,7 @@ app.add_middleware(
     allow_headers=settings.ALLOWED_HEADERS,
 )
 
-# Trusted Host Middleware (security)
+# Trusted Host middleware
 app.add_middleware(
     TrustedHostMiddleware,
     allowed_hosts=["localhost", "127.0.0.1", "0.0.0.0", "*"]
@@ -62,7 +73,7 @@ app.add_middleware(
 # Request timing middleware
 @app.middleware("http")
 async def add_process_time_header(request: Request, call_next):
-    """Add processing time to response headers"""
+    """Add X-Process-Time header to each response"""
     start_time = time.time()
     response = await call_next(request)
     process_time = time.time() - start_time
@@ -72,7 +83,6 @@ async def add_process_time_header(request: Request, call_next):
 # Custom exception handlers
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request: Request, exc: RequestValidationError):
-    """Handle validation errors"""
     logger.error(f"❌ Validation error on {request.url}: {exc.errors()}")
     return JSONResponse(
         status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
@@ -86,7 +96,6 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
 
 @app.exception_handler(500)
 async def internal_server_error_handler(request: Request, exc: Exception):
-    """Handle internal server errors"""
     logger.error(f"❌ Internal server error on {request.url}: {str(exc)}")
     return JSONResponse(
         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -97,40 +106,55 @@ async def internal_server_error_handler(request: Request, exc: Exception):
         }
     )
 
-# Include routers
-app.include_router(budget.router, prefix="/api/v1")
-app.include_router(investment.router, prefix="/api/v1")
-app.include_router(chatbot.router, prefix="/api/v1")
+# Routers
+app.include_router(auth.router, prefix="/api/v1", tags=["Auth"])
+app.include_router(budget.router, prefix="/api/v1", tags=["Budget"])
+app.include_router(investment.router, prefix="/api/v1", tags=["Investment"])
+app.include_router(chatbot.router, prefix="/api/v1", tags=["Chatbot"])
 
 # Root endpoint
 @app.get("/", tags=["Root"])
 async def root():
-    """API root endpoint"""
+    db_healthy = await check_database_health()
     return {
-        "message": "🏦 Financial Literacy Budget Planner API",
+        "message": f"🏦 {settings.API_TITLE}",
         "version": settings.API_VERSION,
         "status": "running",
         "docs": "/docs",
+        "database": "connected" if db_healthy else "disconnected",
         "ml_model_ready": budget_categorizer.is_trained,
         "endpoints": {
-            "categorize": "/api/v1/budget/categorize",
-            "batch_categorize": "/api/v1/budget/batch-categorize",
-            "model_info": "/api/v1/budget/model-info",
-            "health": "/api/v1/budget/health"
+            "auth": "/api/v1/auth",
+            "budget": {
+                "categorize": "/api/v1/budget/categorize",
+                "batch_categorize": "/api/v1/budget/batch-categorize",
+                "model_info": "/api/v1/budget/model-info",
+                "health": "/api/v1/budget/health"
+            },
+            "investment": "/api/v1/investment",
+            "chatbot": "/api/v1/chatbot"
         }
     }
 
+# Health endpoint
 @app.get("/health", tags=["Root"])
-async def health():
-    """Simple health check"""
+async def health_check():
+    db_healthy = await check_database_health()
     return {
-        "status": "healthy",
-        "ml_model": "ready" if budget_categorizer.is_trained else "not_ready"
+        "status": "healthy" if db_healthy and budget_categorizer.is_trained else "degraded",
+        "database": "connected" if db_healthy else "disconnected",
+        "ml_model": "ready" if budget_categorizer.is_trained else "not_ready",
+        "version": settings.API_VERSION,
+        "message": (
+            "All systems operational"
+            if db_healthy and budget_categorizer.is_trained
+            else "Some services are not fully operational"
+        )
     }
 
+# Uvicorn entrypoint
 if __name__ == "__main__":
     import uvicorn
-    
     logger.info(f"🚀 Starting server on {settings.API_HOST}:{settings.API_PORT}")
     uvicorn.run(
         "app.main:app",

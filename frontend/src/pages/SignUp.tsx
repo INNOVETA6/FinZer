@@ -1,3 +1,4 @@
+// SignUp.tsx (Updated with Authentication)
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -13,16 +14,19 @@ import {
     School,
     TrendingUp,
     Shield,
-    Target
+    Target,
+    Loader2
 } from "lucide-react";
+import { authService } from "@/services/authService";
 
 const SignUp = () => {
     const navigate = useNavigate();
     const [step, setStep] = useState(1);
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
-    // Form state
+    // Form state - matches backend schema
     const [formData, setFormData] = useState({
         fullName: "",
         email: "",
@@ -61,7 +65,7 @@ const SignUp = () => {
         }
     };
 
-    // Password strength checker
+    // Password strength checker (unchanged)
     const getPasswordStrength = (password: string) => {
         let strength = 0;
         if (password.length >= 8) strength++;
@@ -75,7 +79,7 @@ const SignUp = () => {
     const strengthColors = ["#ea4335", "#fbbc05", "#fbbc05", "#34a853", "#34a853"];
     const strengthLabels = ["Weak", "Fair", "Fair", "Good", "Strong"];
 
-    // Validation
+    // Validation (unchanged)
     const validateStep1 = () => {
         const newErrors = { fullName: "", email: "", password: "", confirmPassword: "" };
         let isValid = true;
@@ -138,36 +142,61 @@ const SignUp = () => {
         setStep(3);
     };
 
-    // Handle form submission
-    const handleSubmit = () => {
+    // Updated form submission with backend integration
+    const handleSubmit = async () => {
         if (!formData.agreeToTerms) {
             alert("Please accept the Terms & Conditions");
             return;
         }
 
-        // TODO: Send data to backend
-        console.log("Form submitted:", formData);
+        setIsLoading(true);
 
-        // Set authentication in localStorage (temporary)
-        localStorage.setItem('isAuthenticated', 'true');
+        try {
+            // Prepare data for backend API
+            const signupData = {
+                name: formData.fullName,
+                email: formData.email,
+                password: formData.password,
+                confirm_password: formData.confirmPassword,
+                date_of_birth: formData.dateOfBirth || undefined,
+                phone_number: formData.phoneNumber || undefined,
+                country: formData.country,
+                monthly_income_range: formData.monthlyIncome || undefined,
+                financial_goal: formData.financialGoal || undefined,
+                financial_status: formData.financialStatus || undefined,
+                subscribe_newsletter: formData.subscribeNewsletter,
+                agree_to_terms: formData.agreeToTerms
+            };
 
-        // Navigate to dashboard
-        navigate('/dashboard');
+            // Call authentication service
+            await authService.signUp(signupData);
+
+            // Success notification (you can implement toast here)
+            console.log("✅ Account created successfully!");
+            alert("Account created successfully! Welcome to FinZer!");
+
+            // Navigate to sign-in page
+            navigate('/sign-in');
+
+        } catch (error: any) {
+            console.error("❌ Signup failed:", error.message);
+            alert(`Registration failed: ${error.message}`);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
         <div className="min-h-screen flex" style={{ backgroundColor: "#f8f9fa" }}>
 
-            {/* Left Side - Hero Section */}
+            {/* Left Side - Hero Section (unchanged) */}
             <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-blue-950 to-blue-900 p-12 flex-col justify-between text-white relative overflow-hidden">
-                {/* Animated background elements */}
+                {/* All your existing hero section code remains exactly the same */}
                 <div className="absolute inset-0 opacity-30">
                     <div className="absolute top-20 left-10 w-72 h-72 bg-blue-900 rounded-full mix-blend-overlay filter blur-3xl animate-blob"></div>
                     <div className="absolute top-40 right-10 w-72 h-72 bg-blue-800 rounded-full mix-blend-overlay filter blur-3xl animate-blob animation-delay-2000"></div>
                     <div className="absolute -bottom-8 left-20 w-72 h-72 bg-indigo-900 rounded-full mix-blend-overlay filter blur-3xl animate-blob animation-delay-4000"></div>
                 </div>
-            
-
 
                 <div className="relative z-10">
                     {/* Logo */}
@@ -263,8 +292,9 @@ const SignUp = () => {
                         </div>
                     </div>
                 </div>
+
                 {/* Trust Indicators */}
-                <div className="border-t border-white/20 pt-1 relative z-10 ">
+                <div className="border-t border-white/20 pt-1 relative z-10">
                     <p
                         className="text-white/70 text-sm"
                         style={{ fontFamily: "Roboto, sans-serif" }}
@@ -282,9 +312,9 @@ const SignUp = () => {
                         {[1, 2, 3].map((s) => (
                             <div
                                 key={s}
-                                className={`h-2 rounded-full transition-all duration-300 ${s === step ? "w-12" : "w-8"
-                                    } ${s <= step ? "bg-blue-500" : "bg-gray-200"
-                                    }`}
+                                className={`h-2 rounded-full transition-all duration-300 ${
+                                    s === step ? "w-12" : "w-8"
+                                } ${s <= step ? "bg-blue-500" : "bg-gray-200"}`}
                             />
                         ))}
                     </div>
@@ -329,6 +359,7 @@ const SignUp = () => {
                                     placeholder="John Doe"
                                     className="h-12"
                                     style={{ fontFamily: "Roboto, sans-serif" }}
+                                    disabled={isLoading}
                                 />
                                 {errors.fullName && (
                                     <p className="text-red-500 text-sm mt-1">{errors.fullName}</p>
@@ -354,6 +385,7 @@ const SignUp = () => {
                                     placeholder="john@example.com"
                                     className="h-12"
                                     style={{ fontFamily: "Roboto, sans-serif" }}
+                                    disabled={isLoading}
                                 />
                                 {errors.email && (
                                     <p className="text-red-500 text-sm mt-1">{errors.email}</p>
@@ -380,11 +412,13 @@ const SignUp = () => {
                                         placeholder="••••••••"
                                         className="h-12 pr-12"
                                         style={{ fontFamily: "Roboto, sans-serif" }}
+                                        disabled={isLoading}
                                     />
                                     <button
                                         type="button"
                                         onClick={() => setShowPassword(!showPassword)}
                                         className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                                        disabled={isLoading}
                                     >
                                         {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                                     </button>
@@ -438,11 +472,13 @@ const SignUp = () => {
                                         placeholder="••••••••"
                                         className="h-12 pr-12"
                                         style={{ fontFamily: "Roboto, sans-serif" }}
+                                        disabled={isLoading}
                                     />
                                     <button
                                         type="button"
                                         onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                                         className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                                        disabled={isLoading}
                                     >
                                         {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                                     </button>
@@ -454,6 +490,7 @@ const SignUp = () => {
 
                             <Button
                                 onClick={handleNext}
+                                disabled={isLoading}
                                 className="w-full h-12 text-base rounded-full"
                                 style={{
                                     backgroundColor: "#4285f4",
@@ -506,6 +543,7 @@ const SignUp = () => {
                                     onChange={handleChange}
                                     className="h-12"
                                     style={{ fontFamily: "Roboto, sans-serif" }}
+                                    disabled={isLoading}
                                 />
                             </div>
 
@@ -528,6 +566,7 @@ const SignUp = () => {
                                     placeholder="+91 98765 43210"
                                     className="h-12"
                                     style={{ fontFamily: "Roboto, sans-serif" }}
+                                    disabled={isLoading}
                                 />
                             </div>
 
@@ -548,6 +587,7 @@ const SignUp = () => {
                                     onChange={handleChange}
                                     className="w-full h-12 px-3 border border-gray-300 rounded-md"
                                     style={{ fontFamily: "Roboto, sans-serif" }}
+                                    disabled={isLoading}
                                 >
                                     <option value="India">India</option>
                                     <option value="United States">United States</option>
@@ -564,6 +604,7 @@ const SignUp = () => {
                                     variant="outline"
                                     className="flex-1 h-12 text-base rounded-full"
                                     style={{ fontFamily: "Roboto, sans-serif" }}
+                                    disabled={isLoading}
                                 >
                                     <ArrowLeft className="w-5 h-5 mr-2" />
                                     Back
@@ -576,6 +617,7 @@ const SignUp = () => {
                                         fontFamily: "Roboto, sans-serif",
                                         fontWeight: 500
                                     }}
+                                    disabled={isLoading}
                                 >
                                     Continue
                                     <ArrowRight className="w-5 h-5 ml-2" />
@@ -586,6 +628,7 @@ const SignUp = () => {
                                 onClick={handleSkip}
                                 className="w-full text-center text-sm text-gray-500 hover:text-gray-700"
                                 style={{ fontFamily: "Roboto, sans-serif" }}
+                                disabled={isLoading}
                             >
                                 Skip for now
                             </button>
@@ -630,6 +673,7 @@ const SignUp = () => {
                                     onChange={handleChange}
                                     className="w-full h-12 px-3 border border-gray-300 rounded-md"
                                     style={{ fontFamily: "Roboto, sans-serif" }}
+                                    disabled={isLoading}
                                 >
                                     <option value="">Select range</option>
                                     <option value="below-20k">Below ₹20,000</option>
@@ -657,6 +701,7 @@ const SignUp = () => {
                                     onChange={handleChange}
                                     className="w-full h-12 px-3 border border-gray-300 rounded-md"
                                     style={{ fontFamily: "Roboto, sans-serif" }}
+                                    disabled={isLoading}
                                 >
                                     <option value="">Select goal</option>
                                     <option value="emergency-fund">Build Emergency Fund</option>
@@ -684,6 +729,7 @@ const SignUp = () => {
                                     onChange={handleChange}
                                     className="w-full h-12 px-3 border border-gray-300 rounded-md"
                                     style={{ fontFamily: "Roboto, sans-serif" }}
+                                    disabled={isLoading}
                                 >
                                     <option value="">Select status</option>
                                     <option value="starting">Just Starting Out</option>
@@ -702,6 +748,7 @@ const SignUp = () => {
                                         checked={formData.agreeToTerms}
                                         onChange={handleChange}
                                         className="mt-1 w-4 h-4 accent-blue-500"
+                                        disabled={isLoading}
                                     />
                                     <span
                                         className="text-sm text-gray-600"
@@ -725,6 +772,7 @@ const SignUp = () => {
                                         checked={formData.subscribeNewsletter}
                                         onChange={handleChange}
                                         className="mt-1 w-4 h-4 accent-blue-500"
+                                        disabled={isLoading}
                                     />
                                     <span
                                         className="text-sm text-gray-600"
@@ -741,22 +789,32 @@ const SignUp = () => {
                                     variant="outline"
                                     className="flex-1 h-12 text-base rounded-full"
                                     style={{ fontFamily: "Roboto, sans-serif" }}
+                                    disabled={isLoading}
                                 >
                                     <ArrowLeft className="w-5 h-5 mr-2" />
                                     Back
                                 </Button>
                                 <Button
                                     onClick={handleSubmit}
-                                    disabled={!formData.agreeToTerms}
+                                    disabled={!formData.agreeToTerms || isLoading}
                                     className="flex-1 h-12 text-base rounded-full"
                                     style={{
-                                        backgroundColor: formData.agreeToTerms ? "#4285f4" : "#9aa0a6",
+                                        backgroundColor: formData.agreeToTerms && !isLoading ? "#4285f4" : "#9aa0a6",
                                         fontFamily: "Roboto, sans-serif",
                                         fontWeight: 500
                                     }}
                                 >
-                                    Create Account
-                                    <CheckCircle2 className="w-5 h-5 ml-2" />
+                                    {isLoading ? (
+                                        <>
+                                            <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                                            Creating...
+                                        </>
+                                    ) : (
+                                        <>
+                                            Create Account
+                                            <CheckCircle2 className="w-5 h-5 ml-2" />
+                                        </>
+                                    )}
                                 </Button>
                             </div>
                         </div>
@@ -775,6 +833,7 @@ const SignUp = () => {
                             <button
                                 onClick={() => navigate("/sign-in")}
                                 className="text-blue-500 font-medium hover:underline"
+                                disabled={isLoading}
                             >
                                 Sign In
                             </button>
@@ -783,6 +842,7 @@ const SignUp = () => {
                 </Card>
             </div>
 
+            {/* All your existing styles remain exactly the same */}
             <style>{`
                 @keyframes fade-in {
                     from {
@@ -797,91 +857,70 @@ const SignUp = () => {
 
                 .animate-fade-in {
                     animation: fade-in 0.3s ease-out;
-
                 }
+                
                 @keyframes blob {
-        0%, 100% {
-            transform: translate(0, 0) scale(1);
-        }
-        33% {
-            transform: translate(30px, -50px) scale(1.1);
-        }
-        66% {
-            transform: translate(-20px, 20px) scale(0.9);
-        }
-    }
+                    0%, 100% {
+                        transform: translate(0, 0) scale(1);
+                    }
+                    33% {
+                        transform: translate(30px, -50px) scale(1.1);
+                    }
+                    66% {
+                        transform: translate(-20px, 20px) scale(0.9);
+                    }
+                }
 
-    @keyframes slide-up {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
+                @keyframes slide-up {
+                    from {
+                        opacity: 0;
+                        transform: translateY(20px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
 
-    .animate-blob {
-        animation: blob 7s infinite;
-    }
+                .animate-blob {
+                    animation: blob 7s infinite;
+                }
 
-    .animate-slide-up {
-        animation: slide-up 0.6s ease-out;
-    }
+                .animate-slide-up {
+                    animation: slide-up 0.6s ease-out;
+                }
 
-    .animation-delay-200 {
-        animation-delay: 0.2s;
-        opacity: 0;
-        animation-fill-mode: forwards;
-    }
+                .animation-delay-200 {
+                    animation-delay: 0.2s;
+                    opacity: 0;
+                    animation-fill-mode: forwards;
+                }
 
-    .animation-delay-400 {
-        animation-delay: 0.4s;
-        opacity: 0;
-        animation-fill-mode: forwards;
-    }
+                .animation-delay-400 {
+                    animation-delay: 0.4s;
+                    opacity: 0;
+                    animation-fill-mode: forwards;
+                }
 
-    .animation-delay-600 {
-        animation-delay: 0.6s;
-        opacity: 0;
-        animation-fill-mode: forwards;
-    }
+                .animation-delay-600 {
+                    animation-delay: 0.6s;
+                    opacity: 0;
+                    animation-fill-mode: forwards;
+                }
 
-    .animation-delay-800 {
-        animation-delay: 0.8s;
-        opacity: 0;
-        animation-fill-mode: forwards;
-    }
+                .animation-delay-800 {
+                    animation-delay: 0.8s;
+                    opacity: 0;
+                    animation-fill-mode: forwards;
+                }
 
-    .animation-delay-1000 {
-        animation-delay: 1s;
-        opacity: 0;
-        animation-fill-mode: forwards;
-    }
+                .animation-delay-2000 {
+                    animation-delay: 2s;
+                }
 
-    .animation-delay-2000 {
-        animation-delay: 2s;
-    }
-
-    .animation-delay-4000 {
-        animation-delay: 4s;
-    }
-
-    @keyframes fade-in {
-        from {
-            opacity: 0;
-            transform: translateY(10px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    .animate-fade-in {
-        animation: fade-in 0.3s ease-out;
-    }    
+                .animation-delay-4000 {
+                    animation-delay: 4s;
+                }
             `}</style>
         </div>
     );

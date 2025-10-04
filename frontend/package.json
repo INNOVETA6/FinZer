@@ -45,7 +45,11 @@
           "@radix-ui/react-tooltip": "^1.2.7",
           "@tailwindcss/vite": "^4.1.14",
           "@tanstack/react-query": "^5.83.0",
+<<<<<<< HEAD
           "bootstrap": "^5.3.8",
+=======
+          "axios": "^1.12.2",
+>>>>>>> fa4183c5eee7027cd8f5499612c5944be57c5622
           "class-variance-authority": "^0.7.1",
           "clsx": "^2.1.1",
           "cmdk": "^1.1.1",
@@ -55,7 +59,10 @@
           "lucide-react": "^0.462.0",
           "next-themes": "^0.3.0",
           "react": "^18.3.1",
+<<<<<<< HEAD
           "react-bootstrap": "^2.10.10",
+=======
+>>>>>>> fa4183c5eee7027cd8f5499612c5944be57c5622
           "react-day-picker": "^8.10.1",
           "react-dom": "^18.3.1",
           "react-hook-form": "^7.61.1",
