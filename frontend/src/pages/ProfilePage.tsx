@@ -1,7 +1,7 @@
 // src/components/DynamicProfilePage.tsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from '@/components/Navbar';
+import Header from '@/components/DynamicNavbar';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';

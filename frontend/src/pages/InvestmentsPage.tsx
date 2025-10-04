@@ -78,7 +78,7 @@ import {
   Building,
   CreditCard
 } from 'lucide-react';
-import Header from '@/components/Navbar';
+import Header from '@/components/DynamicNavbar';
 
 // API Configuration
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1';
