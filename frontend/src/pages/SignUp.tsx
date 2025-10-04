@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import logo from "../assets/images/logo.png";
+ 
 import {
     ArrowRight,
     ArrowLeft,
@@ -200,10 +202,14 @@ const SignUp = () => {
 
                 <div className="relative z-10">
                     {/* Logo */}
-                    <div className="flex items-center gap-3 mb-16 animate-fade-in">
-                        <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm shadow-lg">
-                            <School className="w-6 h-6" />
-                        </div>
+                    <div className="flex items-center gap-2 mb-16 animate-fade-in">
+                       <div> 
+                            <img
+                                src={logo}   // <-- put your logo file inside public/logo.png
+                                alt="FinZer Logo"
+                                className="h-12 w-12 object-contain"
+                            />
+                       </div>
                         <span
                             className="text-3xl font-bold"
                             style={{ fontFamily: "Google Sans, sans-serif" }}

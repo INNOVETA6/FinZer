@@ -8,8 +8,19 @@ const Hero = () => {
   const navigate = useNavigate();
 
   const handleStartJourney = () => {
-    navigate('/sign-up');
-  };
+    const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+
+    if (isAuthenticated) {
+      // already logged in → go to budget planner
+      navigate('/budget-planner');
+    } else {
+      // not logged in → go to signup
+      navigate('/sign-up');
+    }
+  }; 
+  // const handleStartJourney = () => {
+  //   navigate('/sign-up');
+  // };
 
   const learninghub = () => {
     navigate('/learning-hub');

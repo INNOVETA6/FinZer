@@ -33,7 +33,8 @@ import {
   Loader2,
   DollarSign,
   Target,
-  Award
+  Award,
+  IndianRupee
 } from 'lucide-react';
 
 import { profileService, UserProfile } from '@/services/profileService';
@@ -617,7 +618,7 @@ const DynamicProfilePage: React.FC = () => {
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
-                    <DollarSign className="h-5 w-5 text-primary" />
+                    <IndianRupee className="h-5 w-5 text-primary" />
                     <span>Financial Profile</span>
                   </CardTitle>
                   <CardDescription>Your financial information from signup</CardDescription>

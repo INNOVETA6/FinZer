@@ -76,7 +76,8 @@ import {
   Info,
   Wallet, // Using Wallet instead of PiggyBank
   Building,
-  CreditCard
+  CreditCard,
+  IndianRupee
 } from 'lucide-react';
 import Header from '@/components/Navbar';
 
@@ -484,7 +485,7 @@ const InvestmentRecommender: React.FC = () => {
                           render={({ field }) => (
                             <FormItem>
                               <FormLabel className="flex items-center space-x-2">
-                                <DollarSign className="h-4 w-4" />
+                                <IndianRupee className="h-4 w-4" />
                                 <span>Monthly Income (₹)</span>
                               </FormLabel>
                               <FormControl>
@@ -704,7 +705,7 @@ const InvestmentRecommender: React.FC = () => {
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel className="flex items-center space-x-2">
-                              <DollarSign className="h-4 w-4" />
+                              <IndianRupee className="h-4 w-4" />
                               <span>Monthly Investment Amount (₹)</span>
                             </FormLabel>
                             <FormControl>
@@ -735,7 +736,7 @@ const InvestmentRecommender: React.FC = () => {
                       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                         <Card className="text-center">
                           <CardContent className="p-6">
-                            <DollarSign className="h-8 w-8 text-blue-600 mx-auto mb-2" />
+                            <IndianRupee className="h-8 w-8 text-blue-600 mx-auto mb-2" />
                             <div className="text-2xl font-bold text-blue-900">
                               {formatCurrency(recommendation.recommendation_summary.portfolio_overview.total_investment)}
                             </div>

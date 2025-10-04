@@ -38,7 +38,9 @@ import {
   Users,
   Award,
   ArrowUpRight,
-  ArrowDownRight
+  ArrowDownRight,
+  IndianRupee,
+  
 } from 'lucide-react';
 
 interface FinancialData {
@@ -226,12 +228,12 @@ const FinancialDashboard: React.FC = () => {
                 Monthly Income
               </CardTitle>
               <div className="p-2 bg-green-100 dark:bg-green-900 rounded-lg">
-                <DollarSign className="h-4 w-4 text-green-600 dark:text-green-400" />
+                <IndianRupee className="h-4 w-4 text-green-600 dark:text-green-400" />
               </div>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-green-700 dark:text-green-400">
-                ${financialData.monthlyIncome.toLocaleString()}
+                  ₹{financialData.monthlyIncome.toLocaleString()}
               </div>
               <div className="flex items-center space-x-1 text-xs text-muted-foreground">
                 <ArrowUpRight className="h-3 w-3 text-green-600" />
@@ -251,7 +253,7 @@ const FinancialDashboard: React.FC = () => {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-red-700 dark:text-red-400">
-                ${financialData.monthlyExpenses.toLocaleString()}
+                ₹{financialData.monthlyExpenses.toLocaleString()}
               </div>
               <div className="flex items-center space-x-1 text-xs text-muted-foreground">
                 <ArrowDownRight className="h-3 w-3 text-red-600" />
@@ -271,7 +273,7 @@ const FinancialDashboard: React.FC = () => {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-blue-700 dark:text-blue-400">
-                ${financialData.savings.toLocaleString()}
+                ₹{financialData.savings.toLocaleString()}
               </div>
               <div className="flex items-center space-x-1 text-xs text-muted-foreground">
                 <ArrowUpRight className="h-3 w-3 text-blue-600" />
@@ -291,7 +293,7 @@ const FinancialDashboard: React.FC = () => {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-purple-700 dark:text-purple-400">
-                ${calculateNetWorth().toLocaleString()}
+                ₹{calculateNetWorth().toLocaleString()}
               </div>
               <div className="flex items-center space-x-1 text-xs text-muted-foreground">
                 <ArrowUpRight className="h-3 w-3 text-purple-600" />
@@ -394,7 +396,7 @@ const FinancialDashboard: React.FC = () => {
                           paddingAngle={2}
                         >
                           {financialHealthData.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={entry.color} />
+                            <Cell key={`cell-₹{index}`} fill={entry.color} />
                           ))}
                         </Pie>
                         <Tooltip 
@@ -471,21 +473,21 @@ const FinancialDashboard: React.FC = () => {
                               <span className="font-medium text-sm">{category.name}</span>
                             </div>
                             <div className="text-right text-sm">
-                              <div className={`font-semibold ${isOverBudget ? 'text-destructive' : 'text-muted-foreground'}`}>
-                                ${category.spent} / ${category.allocated}
+                              <div className={`font-semibold ₹{isOverBudget ? 'text-destructive' : 'text-muted-foreground'}`}>
+                                ₹{category.spent} / ₹{category.allocated}
                               </div>
-                              <div className={`text-xs ${isOverBudget ? 'text-destructive' : 'text-muted-foreground'}`}>
+                              <div className={`text-xs ₹{isOverBudget ? 'text-destructive' : 'text-muted-foreground'}`}>
                                 {percentage.toFixed(0)}%
                               </div>
                             </div>
                           </div>
                           <Progress 
                             value={Math.min(percentage, 100)} 
-                            className={`h-2 ${isOverBudget ? 'progress-destructive' : ''}`}
+                            className={`h-2 ₹{isOverBudget ? 'progress-destructive' : ''}`}
                           />
                           {isOverBudget && (
                             <p className="text-xs text-destructive">
-                              Over budget by ${(category.spent - category.allocated).toLocaleString()}
+                              Over budget by ₹{(category.spent - category.allocated).toLocaleString()}
                             </p>
                           )}
                         </div>
@@ -521,11 +523,11 @@ const FinancialDashboard: React.FC = () => {
                           paddingAngle={2}
                         >
                           {savingsGoalData.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={entry.color} />
+                            <Cell key={`cell-₹{index}`} fill={entry.color} />
                           ))}
                         </Pie>
                         <Tooltip 
-                          formatter={(value, name) => [`${value}%`, name]}
+                            formatter={(value, name) => [`₹{value}%`, name]}
                           contentStyle={{
                             backgroundColor: 'hsl(var(--background))',
                             border: '1px solid hsl(var(--border))',
@@ -545,7 +547,7 @@ const FinancialDashboard: React.FC = () => {
                             <p className="text-xs text-muted-foreground">{goal.value}% allocation</p>
                           </div>
                           <div className="text-right">
-                            <div className="font-bold text-sm">${goal.amount.toLocaleString()}</div>
+                            <div className="font-bold text-sm">₹{goal.amount.toLocaleString()}</div>
                             <Badge variant="secondary" className="text-xs">
                               {goal.value >= 25 ? 'High Priority' : 
                                goal.value >= 15 ? 'Medium Priority' : 'Low Priority'}

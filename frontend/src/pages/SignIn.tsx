@@ -252,19 +252,21 @@ const SignIn = () => {
                                 >
                                     Email Address
                                 </label>
-                                <div className="relative">
+
+                                <div className="relative ">
                                     <Input
                                         type="email"
                                         name="email"
                                         value={formData.email}
                                         onChange={handleChange}
                                         placeholder="john@example.com"
-                                        className="h-12 pl-12"
+                                        className="h-12 pl-12 pr-12" // increased padding for icon space
                                         style={{ fontFamily: "Roboto, sans-serif" }}
                                         disabled={isLoading}
                                     />
-                                    <Mail className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                                    <Mail className="w-4 h-4 absolute  top-1/2  -translate-y-1/2 text-gray-400" />
                                 </div>
+
                                 {errors.email && (
                                     <p className="text-red-500 text-sm mt-1">{errors.email}</p>
                                 )}
@@ -288,11 +290,11 @@ const SignIn = () => {
                                         value={formData.password}
                                         onChange={handleChange}
                                         placeholder="••••••••"
-                                        className="h-12 pl-12 pr-12"
+                                        className="h-12 pl-16 pr-12" // increased padding to match email field
                                         style={{ fontFamily: "Roboto, sans-serif" }}
                                         disabled={isLoading}
                                     />
-                                    <Lock className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                                    <Lock className="w-4 h-4 absolute top-1/2 -translate-y-1/2 text-gray-400" />
                                     <button
                                         type="button"
                                         onClick={() => setShowPassword(!showPassword)}
@@ -374,9 +376,8 @@ const SignIn = () => {
                                     </span>
                                 </div>
                             </div>
-
-                           
                         </form>
+
 
                         {/* Don't have account */}
                         <div
