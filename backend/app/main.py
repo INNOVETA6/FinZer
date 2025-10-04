@@ -16,6 +16,14 @@ from app.models.ml_models.budget_categorizer import budget_categorizer
 # Routers
 from app.api.routers import auth, budget, investment, chatbot
 
+# Import profile router
+try:
+    from app.api.routers import profile
+    PROFILE_ROUTER_AVAILABLE = True
+except ImportError:
+    PROFILE_ROUTER_AVAILABLE = False
+    logging.warning("Profile router not available")
+
 # Setup logging
 logger = setup_logging()
 
@@ -111,6 +119,12 @@ app.include_router(auth.router, prefix="/api/v1", tags=["Auth"])
 app.include_router(budget.router, prefix="/api/v1", tags=["Budget"])
 app.include_router(investment.router, prefix="/api/v1", tags=["Investment"])
 app.include_router(chatbot.router, prefix="/api/v1", tags=["Chatbot"])
+
+
+# Include profile router if available
+if PROFILE_ROUTER_AVAILABLE:
+    app.include_router(profile.router, prefix="/api/v1")
+    logger.info("✅ Profile router included")
 
 # Root endpoint
 @app.get("/", tags=["Root"])
